@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Runner — Final</title>
+  <link rel="stylesheet" href="Game.css" />
+</head>
+<body>
+  <main class="stage">
+
+    <header class="hud">
+      <div class="score">Skor: <span id="score">0</span></div>
+      <div class="lives" id="lives"></div>
+    </header>
+
+    <section class="game-area" id="gameArea" aria-label="Area permainan">
+      <div class="clouds" id="clouds"></div>
+      <div id="particles" class="particles"></div>
+
+      <div id="player" class="player character-a"></div>
+      <div class="ground"></div>
+
+      <div class="start-overlay" id="startOverlay">
+        <h1>Runner</h1>
+
+        <div class="char-select">
+          <div class="char opt selected" data-char="character-a">
+            <div class="icon a"></div>
+            <div class="label">Kuning</div>
+          </div>
+          <div class="char opt" data-char="character-b">
+            <div class="icon b"></div>
+            <div class="label">Biru</div>
+          </div>
+        </div>
+
+        <div class="music-controls">
+          <button class="btn" id="musicToggle">🔊 Musik: ON</button>
+        </div>
+
+        <button class="btn" id="startBtn">Mulai</button>
+        <div class="start-note">Klik area / tekan <strong>Space</strong> • 1x = lompat • 2x cepat = lompat ganda</div>
+      </div>
+    </section>
+
+    <footer class="controls">
+      <button class="btn jump" id="jumpBtn">Lompat</button>
+      <div class="tips">1x = lompat tunggal · 2x = lompat ganda</div>
+    </footer>
+
+  </main>
+
+  <!-- audio files (your mp3 files) -->
+  <audio id="bgAudio" src="soft-background-music-432715.mp3" loop preload="auto"></audio>
+  <audio id="gameOverAudio" src="game-over-retro-arcade-game-422478.mp3" preload="auto"></audio>
+
+  <script src="Game.js" defer></script>
+</body>
+</html>

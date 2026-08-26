@@ -1,0 +1,89 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #F7F7F7;
+  color: #202020;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.kartu-game {
+  background-color: #FFFFFF;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  width: 350px;
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+.arena {
+  border: #95ecec  2px solid;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 30px;
+  margin: 15px 0;
+}
+
+.kotak-pemain p {
+  font-weight: bold;
+  align-items: center;
+  margin-bottom: 10px;  
+}
+
+.kotak-pemain span {
+  font-size: 100px;
+}
+
+
+.vs {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #009999;
+}
+
+
+.papan-skor {
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+  color: #666666;
+}
+
+#teks-hasil {
+  font-size: 1.2rem;
+  margin: 15px 0;
+  color: #009999;
+  font-weight: bold;
+}
+
+.area-tombol {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+
+.area-tombol button {
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background-color: #009999;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.area-tombol button:hover {
+  transform: scale(1.05);
+  background-color: #007f7f;
+}

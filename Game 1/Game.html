@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Batu - Gunting - Kertas</title>
+
+    <!-- Menghubungkan ke file CSS -->
+    <link rel="stylesheet" href="StyleGame.css">
+
+</head>
+<body>
+    <div class="kartu-game">
+        <h1>✊ ✌️ 🖐️</h1>
+        <h2>Batu Gunting Kertas</h2>
+
+    <!-- Arena Pertarungan -->
+    <div class="arena">
+      <div class="kotak-pemain">
+        <p>Kamu</p>
+        <span id="pilihan-pemain">❓</span>
+    </div>
+
+    <div class="vs">VS</div>
+      <div class="kotak-pemain">
+        <p>Komputer</p>
+        <span id="pilihan-komputer">❓</span>
+      </div>
+    </div>
+
+
+    <!-- Papan Skor -->
+    <div class="papan-skor">
+      <p>Skor Kamu: <span id="skor-pemain">0</span></p>
+      <p>Skor Komputer: <span id="skor-komputer">0</span></p>
+    </div>
+
+
+    <!-- Teks Hasil -->
+    <h3 id="teks-hasil">Pilih senjatamu!</h3>
+
+
+    <!-- Tombol Pilihan -->
+    <div class="area-tombol">
+      <button onclick="main('batu')">✊ Batu</button>
+      <button onclick="main('gunting')">✌️ Gunting</button>
+      <button onclick="main('kertas')">🖐️ Kertas</button>
+      <button onclick="resetSkor()">🔄 Reset Skor</button>
+    </div>
+
+    <!-- Menghubungkan ke file JS -->
+    <script src="Batu,Gunting,Kertas.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio resmi Willy Alfaro D.P - Pelajar PPLG, Web Developer, dan Creator.">
+    <meta name="keywords" content="Portfolio, Willy Alfaro, PPLG, Web Developer, Frontend">
+    <meta name="author" content="Willy Alfaro D.P">
+    
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:title" content="Portfolio - Willy Alfaro D.P">
+    <meta property="og:description" content="Kumpulan project, keahlian, dan perjalanan belajar Willy Alfaro D.P.">
+    <meta property="og:type" content="website">
+    
+    <title>Portfolio - Willy Alfaro D.P</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="Desain.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@600;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="dark">
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="logo" aria-label="Beranda Profile Realm">
+                🌿 My Portfolio
+            </a>
+            <nav class="nav-links" id="navLinks" aria-label="Navigasi Utama">
+                <a href="#hero">My card</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#education">Education</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#learning">Progress</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button id="themeBtn" class="theme-toggle-btn loader" aria-label="Ganti Tema Terang/Gelap" type="button">
+                    ☀️
+                </button>
+                <button id="hamburgerBtn" class="hamburger" aria-label="Buka Menu" aria-expanded="false" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main-content">
+
+    <!-- ============== MUSIC PLAYER WIDGET ============== -->
+        <div class="music-player-card">
+            <div class="music-info">
+                <div class="music-icon" id="musicIcon">🎵</div>
+                <div class="music-details">
+                    <span class="music-title" id="songTitle">Background Music</span>
+                    <span class="music-status" id="musicStatus">Click play to listen</span>
+                </div>
+            </div>
+            
+            <button class="music-btn" id="playBtn" aria-label="Toggle Music">
+                <span id="playIcon">▶</span>
+            </button>
+
+            <!-- Ganti 'audio.mp3' dengan file lagu kamu -->
+            <audio id="bgAudio" loop>
+                <source src="Call of Silence（Remix）.mp3" type="audio/mpeg">
+                Browser kamu tidak mendukung tag audio.
+            </audio>
+        </div>
+
+        <!-- HERO -->
+        <section id="hero" class="hero-section">
+            <div class="hero-card">
+                <!-- Wrapper Foto & Animasi Spinner -->
+                <div class="profile-avatar-wrapper">
+                    <div class="spinner">
+                        <div class="spinner1"></div>
+                    </div>
+                    <img id="fotoProfil" src="Mario.jpg" alt="Foto Profil Willy Alfaro D.P" class="profile-avatar" loading="eager">
+                </div>
+
+                <!-- Detail Profil -->
+                <div class="profile-details">
+                    <span class="status">
+                        <span>✦</span> Available for learning & creating
+                    </span>
+
+                    <p class="hero-greeting">HELLO, I'M</p>
+
+                    <h1 id="nama" class="hero-name" aria-live="polite">Loading...</h1>
+
+                    <span id="username" class="username-tag">@username</span>
+
+                    <div class="badge-group">
+                        <span id="role" class="badge role-badge">Role</span>
+                        <span id="lokasi" class="badge location-badge">Lokasi</span>
+                    </div>
+
+                    <p id="bio" class="bio-text">Bio description will appear here...</p>
+
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn primary-btn">🚀 Lihat Project</a>
+                        <a href="#contact" class="btn secondary-btn">Hubungi Saya →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="section-container">
+            <div class="section-heading">
+                <span class="section-number">01</span>
+                <div>
+                    <p class="section-label">GET TO KNOW ME</p>
+                    <h2 class="section-title">About Me</h2>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <div class="about-intro">
+                    <p>
+                        Halo! Saya <strong id="namaAbout">-</strong>. Saya adalah pelajar PPLG yang sedang belajar dan mengembangkan kemampuan di bidang teknologi.
+                    </p>
+                    <p>
+                        Saya suka membuat website, game, mencoba teknologi baru, serta mengubah ide menjadi sebuah project.
+                    </p>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-item">
+                        <span class="about-label">Nama Lengkap</span>
+                        <p id="namaAboutCard" class="about-value">-</p>
+                    </div>
+
+                    <div class="about-item">
+                        <span class="about-label">Username</span>
+                        <p id="usernameAbout" class="about-value">-</p>
+                    </div>
+
+                    <div class="about-item">
+                        <span class="about-label">Peran / Status</span>
+                        <p id="roleAbout" class="about-value">-</p>
+                    </div>
+
+                    <div class="about-item">
+                        <span class="about-label">Lokasi</span>
+                        <p id="lokasiAbout" class="about-value">-</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="section-container">
+            <div class="section-heading">
+                <span class="section-number">02</span>
+                <div>
+                    <p class="section-label">MY ABILITIES</p>
+                    <h2 class="section-title">Skills</h2>
+                </div>
+            </div>
+
+            <div id="skillsContainer" class="skills-grid">
+                <!-- Dibuat oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section id="education" class="section-container">
+            <div class="section-heading">
+                <span class="section-number">03</span>
+                <div>
+                    <p class="section-label">MY BACKGROUND</p>
+                    <h2 class="section-title">Education</h2>
+                </div>
+            </div>
+
+            <div id="educationContainer" class="timeline-container">
+                <!-- Dibuat oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="section-container">
+            <div class="section-heading">
+                <span class="section-number">04</span>
+                <div>
+                    <p class="section-label">MY EXPERIENCE</p>
+                    <h2 class="section-title">Experience</h2>
+                </div>
+            </div>
+
+            <div id="experienceContainer" class="timeline-container">
+                <!-- Dibuat oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="section-container">
+            <div class="section-heading">
+                <span class="section-number">05</span>
+                <div>
+                    <p class="section-label">MY CREATIONS</p>
+                    <h2 class="section-title">Featured Projects</h2>
+                </div>
+            </div>
+
+            <div id="projectsContainer" class="projects-grid">
+                <!-- Dibuat oleh JavaScript -->
+            </div>
+        </section>
+
+        <!-- ============================================
+        SECTION GALLERY (3D ROTATING GALLERY)
+        ============================================ -->
+        <section class="section-container" id="gallery">
+            <div class="section-heading">
+                <span class="section-number">04</span>
+                <div>
+                    <span class="section-label">Showcase</span>
+                    <h2 class="section-title">My Gallery</h2>
+                </div>
+            </div>
+
+            <div class="gallery-card">
+                <div class="wrapper">
+                    <div class="inner">
+                        <div class="card"><div class="img"></div></div>
+                        <div class="card"><div class="img"></div></div>
+                        <div class="card"><div class="img"></div></div>
+                        <div class="card"><div class="img"></div></div>
+                        <div class="card"><div class="img"></div></div>
+                        <div class="card"><div class="img"></div></div>
+                        <div class="card"><div class="img"></div></div>
+                        <div class="card"><div class="img"></div></div>
+                        <div class="card"><div class="img"></div></div>
+                        <div class="card"><div class="img"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIGHTBOX MODAL (untuk gallery) -->
+        <div class="lightbox-modal" id="galleryLightbox">
+            <span class="lightbox-close" id="lightboxClose">&times;</span>
+            <img class="lightbox-content" id="lightboxImage" src="" alt="Gallery preview">
+        </div>
+
+        <!-- LEARNING PROGRESS -->
+        <section id="learning" class="section-container">
+            <div class="section-heading">
+                <span class="section-number">06</span>
+                <div>
+                    <p class="section-label">MY JOURNEY</p>
+                    <h2 class="section-title">Learning Journey</h2>
+                </div>
+            </div>
+
+            <div class="progress-card">
+                <div class="progress-header">
+                    <div>
+                        <span class="progress-label">📚 CURRENTLY LEARNING</span>
+                        <h3 id="learningTitle" class="progress-title">Loading...</h3>
+                    </div>
+                    <span id="learningPercent" class="progress-percent">0%</span>
+                </div>
+
+                <div class="progress-track" role="progressbar" aria-label="Progres Pembelajaran" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <div id="progressBar" class="progress-fill"></div>
+                </div>
+
+                <p id="learningDescription" class="progress-desc">Deskripsi progress...</p>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="section-container">
+            <div class="section-heading">
+                <span class="section-number">07</span>
+                <div>
+                    <p class="section-label">GET IN TOUCH</p>
+                    <h2 class="section-title">Contact & Socials</h2>
+                </div>
+            </div>
+
+            <div class="about-card">   
+                <div class="about-grid">
+                    <div class="about-item">
+                        <span class="about-label">Email</span>
+                        <p class="about-value"><a href="mailto:alfarowilly117@gmail.com" class="contact-link">alfarowilly117@gmail.com</a></p>
+                    </div>
+                    <div class="about-item">
+                        <span class="about-label">GitHub</span>
+                        <p class="about-value"><a href="https://github.com/ENTRWILL" target="_blank" rel="noopener noreferrer" class="contact-link">github.com/ENTRWILL</a></p>
+                    </div>
+                    <div class="about-item">
+                        <span class="about-label">Instagram</span>
+                        <p class="about-value"><a href="https://instagram.com/entrwill" target="_blank" rel="noopener noreferrer" class="contact-link">@entrwill</a></p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- HALL OF CREATIONS -->
+        <section class="creation-section">
+            <div class="creation-content">
+                <span class="creation-label">✦ HALL OF CREATIONS</span>
+                <h2>Ide → <span>Kode</span> → Creation.</h2>
+                <p>Tempat untuk melihat berbagai karya, eksperimen, dan project yang saya buat selama belajar dan berkembang.</p>
+                <a href="#projects" class="creation-button">Explore My Creations ↗</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div>
+            <strong id="footerName">Willy Alfaro D.P</strong>
+            <p>Built with HTML, CSS & JavaScript.</p>
+        </div>
+        <span>© 2026 Portfolio</span>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="Code.js" defer></script>
+</body>
+
+</html>
