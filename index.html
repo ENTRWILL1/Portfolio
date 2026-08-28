@@ -16,7 +16,7 @@
     <title>Portfolio - Willy Alfaro D.P</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="pngegg.png" type="image/png">
 
     <!-- CSS -->
     <link rel="stylesheet" href="Desain.css">
@@ -84,7 +84,12 @@
     <!-- ============== MUSIC PLAYER WIDGET ============== -->
         <div class="music-player-card">
             <div class="music-info">
-                <div class="music-icon" id="musicIcon">🎵</div>
+                
+                <div class="music-icon" id="musicIcon">
+                    <span class="music-ray" id="musicRay"></span>
+                    🎵
+                </div>
+
                 <div class="music-details">
                     <span class="music-title" id="songTitle">Background Music</span>
                     <span class="music-status" id="musicStatus">Click play to listen</span>
@@ -96,7 +101,7 @@
             </button>
 
             <!-- Ganti 'audio.mp3' dengan file lagu kamu -->
-            <audio id="bgAudio" loop>
+            <audio id="bgAudio">
                 <source src="Call of Silence（Remix）.mp3" type="audio/mpeg">
                 Browser kamu tidak mendukung tag audio.
             </audio>

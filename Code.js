@@ -321,33 +321,77 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /* MUSIC PLAYER & FALLING LEAVES */
+    /* ================= MUSIC PLAYER + AUDIO REACTIVE ICON ================= */
     const audio = document.getElementById("bgAudio");
     const playBtn = document.getElementById("playBtn");
     const playIcon = document.getElementById("playIcon");
     const musicIcon = document.getElementById("musicIcon");
     const musicStatus = document.getElementById("musicStatus");
+    const musicRay = document.getElementById("musicRay");
+    const songTitle = document.getElementById("songTitle");
 
-    let leafContainer = document.getElementById("leafContainer");
-    if (!leafContainer) {
-        leafContainer = document.createElement("div");
-        leafContainer.id = "leafContainer";
-        document.body.appendChild(leafContainer);
+    /* ================= PLAYLIST 3 LAGU ================= */
+    const playlist = [
+        {
+            title: "Call of Silence (Remix)",
+            file: "Call of Silence（Remix）.mp3",
+            effect: "leaves"
+        },
+        {
+            title: "One Last Time - Ariana Grande",
+            file: "One Last Time - Ariana Grande.mp3",
+            effect: "sparkles"
+        },
+        {
+            title: "Good Life - Kehlani",
+            file: "Good Life - Kehlani.mp3",
+            effect: "bubbles"
+        }
+    ];
+
+    let currentSong = 0;
+
+    let effectContainer = document.getElementById("musicEffectContainer");
+    if (!effectContainer) {
+        effectContainer = document.createElement("div");
+        effectContainer.id = "musicEffectContainer";
+        document.body.appendChild(effectContainer);
     }
 
     let leafInterval = null;
+    let effectInterval = null;
 
+    function clearMusicEffects() {
+        if (leafInterval) {
+            clearInterval(leafInterval);
+            leafInterval = null;
+        }
+
+        if (effectInterval) {
+            clearInterval(effectInterval);
+            effectInterval = null;
+        }
+
+        if (effectContainer) {
+            effectContainer.innerHTML = "";
+        }
+    }
+
+    /* ================= EFEK 1 — DAUN ================= */
     function createLeaf() {
         const leaf = document.createElement("div");
         leaf.classList.add("falling-leaf");
+
         const leaves = ["🍃", "🌿", "🍂", "🍁"];
         leaf.innerText = leaves[Math.floor(Math.random() * leaves.length)];
+
         leaf.style.left = Math.random() * 100 + "vw";
+
         const duration = Math.random() * 4 + 4;
         leaf.style.animationDuration = duration + "s";
         leaf.style.fontSize = (Math.random() * 1 + 1) + "rem";
 
-        leafContainer.appendChild(leaf);
+        effectContainer.appendChild(leaf);
 
         setTimeout(() => {
             leaf.remove();
@@ -355,13 +399,172 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function startLeaves() {
-        if (!leafInterval) leafInterval = setInterval(createLeaf, 300);
+        clearMusicEffects();
+
+        createLeaf();
+        leafInterval = setInterval(createLeaf, 300);
     }
 
-    function stopLeaves() {
-        if (leafInterval) {
-            clearInterval(leafInterval);
-            leafInterval = null;
+    /* ================= EFEK 2 — SPARKLE ================= */
+    function createSparkle() {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("music-sparkle");
+
+        const symbols = ["✦", "✧", "✨", "⋆", "✦"];
+        sparkle.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+
+        sparkle.style.left = Math.random() * 100 + "vw";
+        sparkle.style.top = (Math.random() * 85 + 5) + "vh";
+
+        const size = Math.random() * 0.8 + 0.6;
+        sparkle.style.fontSize = size + "rem";
+
+        const duration = Math.random() * 2 + 2;
+        sparkle.style.animationDuration = duration + "s";
+
+        effectContainer.appendChild(sparkle);
+
+        setTimeout(() => {
+            sparkle.remove();
+        }, duration * 1000);
+    }
+
+    function startSparkles() {
+        clearMusicEffects();
+
+        createSparkle();
+        effectInterval = setInterval(createSparkle, 220);
+    }
+
+    /* ================= EFEK 3 — BUBBLE / LIGHT ================= */
+    function createBubble() {
+        const bubble = document.createElement("div");
+        bubble.classList.add("music-bubble");
+
+        bubble.style.left = Math.random() * 100 + "vw";
+        bubble.style.bottom = "-30px";
+
+        const size = Math.random() * 18 + 8;
+        bubble.style.width = size + "px";
+        bubble.style.height = size + "px";
+
+        const duration = Math.random() * 4 + 4;
+        bubble.style.animationDuration = duration + "s";
+
+        effectContainer.appendChild(bubble);
+
+        setTimeout(() => {
+            bubble.remove();
+        }, duration * 1000);
+    }
+
+    function startBubbles() {
+        clearMusicEffects();
+
+        createBubble();
+        effectInterval = setInterval(createBubble, 280);
+    }
+
+    function startCurrentEffect() {
+        clearMusicEffects();
+
+        const effect = playlist[currentSong].effect;
+
+        if (effect === "leaves") {
+            startLeaves();
+        } else if (effect === "sparkles") {
+            startSparkles();
+        } else if (effect === "bubbles") {
+            startBubbles();
+        }
+    }
+
+    function stopMusicEffects() {
+        clearMusicEffects();
+    }
+
+    /* ================= GANTI LAGU ================= */
+    function updateSongTitle() {
+        if (songTitle) {
+            songTitle.textContent = playlist[currentSong].title;
+        }
+    }
+
+    function loadSong(index) {
+        if (!audio) return;
+
+        currentSong = index % playlist.length;
+
+        audio.src = playlist[currentSong].file;
+        audio.load();
+
+        updateSongTitle();
+        startCurrentEffect();
+    }
+
+    /* ===== Web Audio API: analisis frekuensi real dari lagu ===== */
+    let audioCtx, analyser, source, dataArray;
+    let rayAngle = 0;
+    let audioAnimId = null;
+
+    function setupAudioAnalyser() {
+        if (audioCtx) return;
+
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioCtx.createAnalyser();
+        source = audioCtx.createMediaElementSource(audio);
+
+        source.connect(analyser);
+        analyser.connect(audioCtx.destination);
+
+        analyser.fftSize = 64;
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
+    }
+
+    function animateAudioReactive() {
+        if (!analyser || !musicRay) return;
+
+        analyser.getByteFrequencyData(dataArray);
+
+        const bassRange = dataArray.slice(0, 8);
+        const bassAvg = bassRange.reduce((a, b) => a + b, 0) / bassRange.length;
+        const bassNorm = bassAvg / 255;
+
+        const scale = 1 + bassNorm * 0.6;
+        const opacity = 0.35 + bassNorm * 0.65;
+
+        rayAngle = (rayAngle + 1.2) % 360;
+
+        musicRay.style.transform = `rotate(${rayAngle}deg) scale(${scale})`;
+        musicRay.style.opacity = opacity;
+
+        // 🌈 Warna ring ikut bergerak berdasarkan musik
+        const hueShift = (rayAngle + bassNorm * 180) % 360;
+        musicRay.style.filter = `hue-rotate(${hueShift}deg) saturate(1.5)`;
+
+        if (musicIcon) {
+            const glow = 6 + bassNorm * 20;
+            musicIcon.style.boxShadow =
+                `0 0 ${glow}px ${glow / 2}px var(--accent-glow)`;
+        }
+
+        audioAnimId = requestAnimationFrame(animateAudioReactive);
+    }
+
+    function stopAudioReactive() {
+        if (audioAnimId) {
+            cancelAnimationFrame(audioAnimId);
+            audioAnimId = null;
+        }
+
+        if (musicRay) {
+            musicRay.style.transform = "scale(1) rotate(0deg)";
+            musicRay.style.opacity = 0.35;
+            musicRay.style.filter = "none";
+        }
+
+        if (musicIcon) {
+            musicIcon.style.boxShadow = "none";
         }
     }
 
@@ -369,30 +572,77 @@ document.addEventListener("DOMContentLoaded", () => {
         playBtn.addEventListener("click", async () => {
             if (audio.paused) {
                 try {
+                    setupAudioAnalyser();
+
+                    if (audioCtx.state === "suspended") {
+                        await audioCtx.resume();
+                    }
+
                     await audio.play();
+
                     if (playIcon) playIcon.textContent = "❚❚";
                     if (musicIcon) musicIcon.classList.add("playing");
                     if (musicStatus) musicStatus.textContent = "Playing...";
-                    startLeaves();
+
+                    startCurrentEffect();
+                    animateAudioReactive();
+
                 } catch (error) {
                     console.warn("Audio gagal diputar:", error);
-                    if (musicStatus) musicStatus.textContent = "Audio tidak ditemukan";
+
+                    if (musicStatus) {
+                        musicStatus.textContent = "Audio tidak ditemukan";
+                    }
                 }
             } else {
                 audio.pause();
+
                 if (playIcon) playIcon.textContent = "▶";
                 if (musicIcon) musicIcon.classList.remove("playing");
                 if (musicStatus) musicStatus.textContent = "Paused";
-                stopLeaves();
+
+                stopAudioReactive();
+                stopMusicEffects();
             }
         });
 
-        audio.addEventListener("ended", () => {
-            if (playIcon) playIcon.textContent = "▶";
-            if (musicIcon) musicIcon.classList.remove("playing");
-            if (musicStatus) musicStatus.textContent = "Click play to listen";
-            stopLeaves();
+        audio.addEventListener("ended", async () => {
+            stopAudioReactive();
+            stopMusicEffects();
+
+            /* Pindah otomatis ke lagu berikutnya */
+            currentSong = (currentSong + 1) % playlist.length;
+            loadSong(currentSong);
+
+            try {
+                if (audioCtx && audioCtx.state === "suspended") {
+                    await audioCtx.resume();
+                }
+
+                await audio.play();
+
+                if (playIcon) playIcon.textContent = "❚❚";
+                if (musicIcon) musicIcon.classList.add("playing");
+                if (musicStatus) {
+                    musicStatus.textContent = "Playing...";
+                }
+
+                startCurrentEffect();
+                animateAudioReactive();
+
+            } catch (error) {
+                console.warn("Lagu berikutnya gagal diputar:", error);
+
+                if (playIcon) playIcon.textContent = "▶";
+                if (musicIcon) musicIcon.classList.remove("playing");
+                if (musicStatus) {
+                    musicStatus.textContent = "Click play to listen";
+                }
+            }
         });
+
+        /* Pastikan judul lagu pertama tampil */
+        updateSongTitle();
     }
 
     /* NAVBAR & HAMBURGER */
