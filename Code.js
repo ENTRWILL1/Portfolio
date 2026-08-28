@@ -4,7 +4,7 @@
 ========================================================= */
 
 const portfolio = {
-    nama: "Junilda",
+    nama: "Willy alfaro D.P",
     username: "@willyalfarodwitamaputra",
     role: "Student | Web & Game Developer",
     bio: "Saya pelajar PPLG yang sedang belajar membuat website, game, dan berbagai project kreatif.",
