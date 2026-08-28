@@ -455,3 +455,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("🌿 Portfolio Willy Alfaro D.P berhasil dimuat.");
 });
+
+
+/* ================= PAGE LOADER HANDLER ================= */
+window.addEventListener("load", () => {
+    const pageLoader = document.getElementById("pageLoader");
+    if (pageLoader) {
+        setTimeout(() => {
+            pageLoader.classList.add("hide");
+            setTimeout(() => pageLoader.remove(), 700);
+        }, 500); // delay dikit biar animasinya sempat kelihatan
+    }
+});
