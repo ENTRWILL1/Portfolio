@@ -645,33 +645,223 @@ document.addEventListener("DOMContentLoaded", () => {
         updateSongTitle();
     }
 
-    /* NAVBAR & HAMBURGER */
+
+
+    /* =========================================================
+    🔊 UI HOVER SOUND + 📱 MOBILE SCROLL ANIMATION
+    ========================================================= */
+
+    /* ================= HOVER SOUND ================= */
+
+    let uiAudioCtx = null;
+    let lastHoverSound = 0;
+
+    function initUISound() {
+        try {
+            if (!uiAudioCtx) {
+                const AudioContextClass =
+                    window.AudioContext || window.webkitAudioContext;
+
+                if (!AudioContextClass) return;
+
+                uiAudioCtx = new AudioContextClass();
+            }
+
+            if (uiAudioCtx.state === "suspended") {
+                uiAudioCtx.resume().catch(() => {});
+            }
+        } catch (error) {
+            console.warn("UI sound tidak tersedia:", error);
+        }
+    }
+
+    function playHoverSound() {
+        if (!uiAudioCtx) return;
+
+        /* Mencegah bunyi terlalu cepat bertumpuk */
+        const nowMs = performance.now();
+
+        if (nowMs - lastHoverSound < 100) return;
+
+        lastHoverSound = nowMs;
+
+        try {
+            const now = uiAudioCtx.currentTime;
+
+            const oscillator = uiAudioCtx.createOscillator();
+            const gainNode = uiAudioCtx.createGain();
+
+            oscillator.type = "sine";
+
+            /* Nada pendek seperti "tik" */
+            oscillator.frequency.setValueAtTime(850, now);
+            oscillator.frequency.exponentialRampToValueAtTime(
+                1200,
+                now + 0.045
+            );
+
+            /* Volume sangat kecil supaya tidak berisik */
+            gainNode.gain.setValueAtTime(0.0001, now);
+            gainNode.gain.exponentialRampToValueAtTime(
+                0.07,
+                now + 0.006
+            );
+            gainNode.gain.exponentialRampToValueAtTime(
+                0.0001,
+                now + 0.055
+            );
+
+            oscillator.connect(gainNode);
+            gainNode.connect(uiAudioCtx.destination);
+
+            oscillator.start(now);
+            oscillator.stop(now + 0.06);
+        } catch (error) {
+            console.warn("Hover sound gagal:", error);
+        }
+    }
+
+    /*
+    Browser bisa membatasi audio sebelum ada interaksi user.
+    Setelah user klik/touch/tekan keyboard sekali,
+    suara UI siap digunakan.
+    */
+    document.addEventListener("pointerdown", initUISound, {
+        passive: true
+    });
+
+    document.addEventListener("keydown", initUISound);
+
+    const hoverSoundElements = document.querySelectorAll(
+        "a, button, .badge, .project-card, .skill-card, .timeline-card, .about-item, .gallery-card, .video-card"
+    );
+
+    hoverSoundElements.forEach(element => {
+        element.addEventListener("mouseenter", () => {
+            initUISound();
+            playHoverSound();
+        });
+    });
+
+
+    /* ================= 📱 MOBILE SCROLL REVEAL ================= */
+
+    if (window.innerWidth <= 768 && "IntersectionObserver" in window) {
+
+        const mobileRevealElements = document.querySelectorAll(
+            ".section-heading, .about-card, .skill-card, .timeline-card, .project-card, .gallery-card, .progress-card, .creation-section, .video-card"
+        );
+
+        mobileRevealElements.forEach(element => {
+            element.classList.add("mobile-scroll-reveal");
+        });
+
+        const mobileObserver = new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("mobile-scroll-show");
+
+                        mobileObserver.unobserve(entry.target);
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            }
+        );
+
+        mobileRevealElements.forEach(element => {
+            mobileObserver.observe(element);
+        });
+    }
+
+
+
+    /* =========================================================
+    NAVBAR & HAMBURGER
+    Mobile animation fix
+    ========================================================= */
+
     const hamburgerBtn = document.getElementById("hamburgerBtn");
     const navLinksContainer = document.getElementById("navLinks");
     const navLinks = document.querySelectorAll(".nav-links a");
 
     if (hamburgerBtn && navLinksContainer) {
+
         hamburgerBtn.addEventListener("click", () => {
-            const isOpen = navLinksContainer.classList.toggle("active");
-            hamburgerBtn.classList.toggle("open", isOpen);
-            hamburgerBtn.setAttribute("aria-expanded", isOpen);
+
+            const isOpening =
+                !navLinksContainer.classList.contains("active");
+
+            /* Bersihkan status animasi lama */
+            navLinks.forEach(link => {
+                link.classList.remove("clicked");
+                link.style.animation = "none";
+            });
+
+            /*
+            * Paksa browser membaca ulang style
+            * supaya animasi opening selalu dimulai
+            * dari awal.
+            */
+            void navLinksContainer.offsetHeight;
+
+            navLinks.forEach(link => {
+                link.style.animation = "";
+            });
+
+            /* Buka / tutup menu */
+            navLinksContainer.classList.toggle("active", isOpening);
+            hamburgerBtn.classList.toggle("open", isOpening);
+
+            hamburgerBtn.setAttribute(
+                "aria-expanded",
+                String(isOpening)
+            );
         });
     }
 
+
+    /* =========================================================
+    NAV LINK
+    ========================================================= */
+
     navLinks.forEach(link => {
+
         link.addEventListener("click", event => {
 
             const targetId = link.getAttribute("href");
 
-            /* ✨ Animasi saat pilihan menu ditekan */
+            /* Hanya animasi pilihan menu di mobile */
             if (window.innerWidth <= 768) {
+
+                /* Bersihkan clicked dari item lain */
+                navLinks.forEach(item => {
+                    item.classList.remove("clicked");
+                });
+
                 link.classList.add("clicked");
+
+                /*
+                * Hapus class setelah animasi selesai.
+                * Jadi tidak akan nyangkut ketika menu
+                * dibuka kembali.
+                */
+                setTimeout(() => {
+                    link.classList.remove("clicked");
+                }, 360);
             }
 
-            /*
-            Beri waktu animasi berjalan sebelum
-            menu mobile ditutup.
-            */
+
+            /* Tutup menu setelah animasi */
             setTimeout(() => {
 
                 if (navLinksContainer) {
@@ -680,27 +870,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (hamburgerBtn) {
                     hamburgerBtn.classList.remove("open");
-                    hamburgerBtn.setAttribute("aria-expanded", false);
+
+                    hamburgerBtn.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
                 }
+
+                /* Bersihkan semua state klik */
+                navLinks.forEach(item => {
+                    item.classList.remove("clicked");
+                });
 
             }, window.innerWidth <= 768 ? 280 : 0);
 
 
+            /* Smooth scroll */
             if (targetId && targetId.startsWith("#")) {
-                const section = document.querySelector(targetId);
+
+                const section =
+                    document.querySelector(targetId);
 
                 if (section) {
+
                     event.preventDefault();
 
                     setTimeout(() => {
+
                         section.scrollIntoView({
                             behavior: "smooth",
                             block: "start"
                         });
+
                     }, window.innerWidth <= 768 ? 280 : 0);
                 }
             }
+
         });
+
     });
 
     console.log("🌿 Portfolio Willy Alfaro D.P berhasil dimuat.");
