@@ -5017,3 +5017,107 @@ body.dark .gallery-card {
             0 0 25px rgba(142, 249, 252, 0.08);
     }
 }
+
+/* =========================================================
+   ✨ SCROLL PROGRESS BAR
+========================================================= */
+
+.scroll-progress {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    height: 4px;
+
+    width: 0%;
+
+    background: var(--gradient-hero);
+
+    z-index: 1002;
+
+    box-shadow:
+        0 0 10px
+        var(--accent-glow);
+
+    transition:
+        width
+        0.12s
+        ease-out;
+
+    border-radius:
+        0 4px 4px 0;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   📄 RESUME / CV BUTTON
+========================================================= */
+
+.resume-btn {
+
+    background: transparent;
+
+    border:
+        2px
+        solid
+        var(--accent);
+
+    color: var(--accent);
+}
+
+
+.resume-btn:hover {
+
+    background: var(--accent);
+
+    color: #fff;
+
+    transform:
+        translateY(-4px)
+        scale(1.03);
+
+    box-shadow:
+        0 10px
+        25px
+        -5px
+        var(--accent-glow);
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .resume-btn {
+
+        width: 100%;
+
+        text-align: center;
+
+        justify-content: center;
+    }
+}
+
+
+/* =========================================================
+   🖼️ GALLERY LAZY LOAD FADE-IN
+========================================================= */
+
+.gallery-card .img {
+
+    opacity: 0;
+
+    transition:
+        opacity
+        0.6s
+        ease;
+}
+
+
+.gallery-card .img.loaded {
+
+    opacity: 1;
+}

@@ -264,7 +264,24 @@ document.addEventListener("DOMContentLoaded", () => {
         typeEffect();
     }
 
-    /* GALLERY & LIGHTBOX */
+    /* ================= SCROLL PROGRESS BAR ================= */
+    const scrollProgress = document.getElementById("scrollProgress");
+
+    function updateScrollProgress() {
+        if (!scrollProgress) return;
+
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+        scrollProgress.style.width = `${percent}%`;
+    }
+
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress);
+    updateScrollProgress();
+
+    /* GALLERY & LIGHTBOX (LAZY LOAD) */
     const galleryImages = [
         "Gallery/code.jpg",
         "Gallery/code1.jpg",
@@ -283,11 +300,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const lightboxImage = document.getElementById("lightboxImage");
     const lightboxClose = document.getElementById("lightboxClose");
 
-    galleryCards.forEach((card, index) => {
+    function setupGalleryCard(card, index) {
         const imagePath = galleryImages[index];
         if (!imagePath) return;
 
-        card.style.backgroundImage = `url("${imagePath}")`;
         card.style.backgroundSize = "cover";
         card.style.backgroundPosition = "center";
         card.classList.add("has-image");
@@ -300,7 +316,41 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.body.style.overflow = "hidden";
             });
         }
-    });
+    }
+
+    if ("IntersectionObserver" in window) {
+        const galleryObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const index = Number(card.dataset.index);
+                    const imagePath = galleryImages[index];
+
+                    if (imagePath) {
+                        card.style.backgroundImage = `url("${imagePath}")`;
+                        card.classList.add("loaded");
+                    }
+
+                    galleryObserver.unobserve(card);
+                }
+            });
+        }, { rootMargin: "200px", threshold: 0.01 });
+
+        galleryCards.forEach((card, index) => {
+            card.dataset.index = index;
+            setupGalleryCard(card, index);
+            galleryObserver.observe(card);
+        });
+    } else {
+        galleryCards.forEach((card, index) => {
+            const imagePath = galleryImages[index];
+            if (!imagePath) return;
+
+            card.style.backgroundImage = `url("${imagePath}")`;
+            card.classList.add("loaded");
+            setupGalleryCard(card, index);
+        });
+    }
 
     function closeLightbox() {
         if (!galleryLightbox) return;
