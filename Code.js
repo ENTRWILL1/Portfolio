@@ -1001,6 +1001,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let leafInterval = null;
     let effectInterval = null;
 
+    /* Timer pembersihan tiap particle disimpan agar
+       bisa dibatalkan saat fade-out dimulai. */
+    const musicParticleTimers = new Set();
+
+    /* Menyimpan animasi fade yang sedang berjalan. */
+    const musicFadeTimers = new Set();
+
 
     function clearMusicEffects() {
 
@@ -1024,11 +1031,117 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
+        /* Batalkan timer remove particle lama. */
+        musicParticleTimers.forEach(
+            timer => clearTimeout(timer)
+        );
+
+        musicParticleTimers.clear();
+
+
+        /* Batalkan fade lama. */
+        musicFadeTimers.forEach(
+            timer => clearTimeout(timer)
+        );
+
+        musicFadeTimers.clear();
+
+
         if (effectContainer) {
 
             effectContainer.innerHTML =
                 "";
         }
+    }
+
+
+    /* =========================================================
+       🌫️ FADE OUT PARTICLE MUSIK
+       Particle tetap bergerak sambil perlahan memudar.
+    ========================================================= */
+
+    function fadeOutMusicEffects() {
+
+        if (!effectContainer) return;
+
+
+        /* Hentikan spawn baru, tetapi JANGAN menghapus
+           particle yang sudah ada. */
+        if (leafInterval) {
+            clearInterval(leafInterval);
+            leafInterval = null;
+        }
+
+        if (effectInterval) {
+            clearInterval(effectInterval);
+            effectInterval = null;
+        }
+
+
+        const particles =
+            Array.from(effectContainer.children);
+
+
+        particles.forEach(particle => {
+
+            /* Batalkan timer remove bawaan particle. */
+            if (particle.__musicRemoveTimer) {
+                clearTimeout(
+                    particle.__musicRemoveTimer
+                );
+
+                musicParticleTimers.delete(
+                    particle.__musicRemoveTimer
+                );
+
+                particle.__musicRemoveTimer = null;
+            }
+
+
+            /*
+             * PENTING:
+             * Jangan pause animation.
+             * Particle tetap bergerak mengikuti
+             * animasi daun / sparkle / bubble.
+             * Filter opacity dipakai supaya fade tidak
+             * bentrok dengan opacity dari keyframe particle.
+             */
+            particle.style.willChange =
+                "filter, opacity";
+
+            particle.style.transition =
+                "filter 4.2s cubic-bezier(0.22, 0.61, 0.36, 1)";
+
+            particle.style.filter =
+                "opacity(1) blur(0px)";
+
+            /* Paksa browser mengambil state awal. */
+            void particle.offsetWidth;
+
+            requestAnimationFrame(() => {
+
+                requestAnimationFrame(() => {
+
+                    particle.style.filter =
+                        "opacity(0) blur(2px)";
+                });
+            });
+
+
+            /* Hapus SETELAH fade benar-benar selesai. */
+            const fadeTimer =
+                setTimeout(() => {
+
+                    musicFadeTimers.delete(
+                        fadeTimer
+                    );
+
+                    particle.remove();
+
+                }, 4300);
+
+            musicFadeTimers.add(fadeTimer);
+        });
     }
 
 
@@ -1086,11 +1199,23 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        setTimeout(() => {
+        const removeTimer =
+            setTimeout(() => {
 
-            leaf.remove();
+                musicParticleTimers.delete(
+                    removeTimer
+                );
 
-        }, duration * 1000);
+                leaf.remove();
+
+            }, duration * 1000);
+
+        leaf.__musicRemoveTimer =
+            removeTimer;
+
+        musicParticleTimers.add(
+            removeTimer
+        );
     }
 
 
@@ -1173,11 +1298,23 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        setTimeout(() => {
+        const removeTimer =
+            setTimeout(() => {
 
-            sparkle.remove();
+                musicParticleTimers.delete(
+                    removeTimer
+                );
 
-        }, duration * 1000);
+                sparkle.remove();
+
+            }, duration * 1000);
+
+        sparkle.__musicRemoveTimer =
+            removeTimer;
+
+        musicParticleTimers.add(
+            removeTimer
+        );
     }
 
 
@@ -1245,11 +1382,23 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        setTimeout(() => {
+        const removeTimer =
+            setTimeout(() => {
 
-            bubble.remove();
+                musicParticleTimers.delete(
+                    removeTimer
+                );
 
-        }, duration * 1000);
+                bubble.remove();
+
+            }, duration * 1000);
+
+        bubble.__musicRemoveTimer =
+            removeTimer;
+
+        musicParticleTimers.add(
+            removeTimer
+        );
     }
 
 
@@ -1295,7 +1444,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function stopMusicEffects() {
 
-        clearMusicEffects();
+        /*
+         * Jangan langsung clearMusicEffects().
+         * Biarkan particle yang sudah ada bergerak
+         * sambil fade-out tipis-tipis.
+         */
+        fadeOutMusicEffects();
     }
 
 
