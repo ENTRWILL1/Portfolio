@@ -338,12 +338,12 @@ document.addEventListener("DOMContentLoaded", () => {
             effect: "leaves"
         },
         {
-            title: "One Last Time - Ariana Grande",
+            title: "One Last Time",
             file: "One Last Time - Ariana Grande.mp3",
             effect: "sparkles"
         },
         {
-            title: "Good Life - Kehlani",
+            title: "Good Life",
             file: "Good Life - Kehlani.mp3",
             effect: "bubbles"
         }
