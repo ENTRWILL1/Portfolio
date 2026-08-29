@@ -2250,6 +2250,68 @@ document.addEventListener("DOMContentLoaded", () => {
         "🌿 Portfolio Willy Alfaro D.P berhasil dimuat."
     );
 
+
+    /* =========================================================
+    🎯 EXTRA 3D TILT
+    ========================================================= */
+
+    const timelineCards =
+        document.querySelectorAll(".timeline-card");
+
+
+    if (
+        timelineCards.length &&
+        window.matchMedia("(pointer: fine)").matches
+    ) {
+
+        timelineCards.forEach(card => {
+
+            card.addEventListener("mousemove", event => {
+
+                const rect =
+                    card.getBoundingClientRect();
+
+
+                const x =
+                    ((event.clientX - rect.left) /
+                        rect.width) * 2 - 1;
+
+
+                const y =
+                    ((event.clientY - rect.top) /
+                        rect.height) * 2 - 1;
+
+
+                const rotateX =
+                    -y * 5;
+
+
+                const rotateY =
+                    x * 6;
+
+
+                card.style.transform = `
+                    perspective(1200px)
+                    rotateX(${rotateX}deg)
+                    rotateY(${rotateY}deg)
+                    translateY(-5px)
+                    scale(1.015)
+                `;
+            });
+
+
+            card.addEventListener("mouseleave", () => {
+
+                card.style.transform = `
+                    perspective(1200px)
+                    rotateX(0deg)
+                    rotateY(0deg)
+                    translateY(0)
+                    scale(1)
+                `;
+            });
+        });
+    }
 });
 
 

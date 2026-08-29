@@ -1438,83 +1438,77 @@ body::after {
 
 
 /* =========================================================
-   TIMELINE
+   🌿 TIMELINE CONTAINER
 ========================================================= */
 
 .timeline-container {
-
     display: flex;
-
     flex-direction: column;
-
-    gap: 2rem;
-
+    gap: 2.5rem;
     position: relative;
 }
 
+/* =========================================================
+   🌿 TIMELINE — EXTRA POP-OUT 3D
+========================================================= */
 
 .timeline-card {
-
     background: var(--bg-card);
-
     -webkit-backdrop-filter: blur(20px);
-
     backdrop-filter: blur(20px);
 
     border: 1px solid var(--border);
-
     border-radius: 22px;
 
     padding: 2.2rem;
 
     display: flex;
-
     gap: 2rem;
 
-    box-shadow: var(--card-shadow);
+    position: relative;
+
+    transform-style: preserve-3d;
+    perspective: 1200px;
+
+    will-change: transform;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.08);
 
     transition:
-        all
-        0.4s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        );
-
-    position: relative;
+        transform 0.15s ease-out,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
 
 
+/* =========================================================
+   🚀 CARD LEBIH MENONJOL
+========================================================= */
+
 .timeline-card:hover {
-
-    transform: translateX(10px);
-
     border-color: var(--accent);
 
     box-shadow:
-        0 15px
-        30px
-        -10px
-        var(--accent-glow);
+        0 30px 60px -15px var(--accent-glow),
+        0 15px 30px rgba(0, 0, 0, 0.12);
 }
 
 
-.timeline-icon {
+/* =========================================================
+   🧊 ICON — PALING KELUAR
+========================================================= */
 
+.timeline-icon {
     font-size: 2rem;
 
     background: var(--badge-bg);
 
     min-width: 64px;
-
     height: 64px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     border-radius: 18px;
@@ -1522,10 +1516,44 @@ body::after {
     border: 1px solid var(--border);
 
     flex-shrink: 0;
+
+    transform:
+        translateZ(40px)
+        scale(1.02);
+
+    transform-style: preserve-3d;
+
+    box-shadow:
+        0 15px 25px rgba(0, 0, 0, 0.12);
+
+    transition:
+        transform 0.3s cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+        ),
+        box-shadow 0.3s ease;
 }
 
 
+.timeline-card:hover .timeline-icon {
+    transform:
+        translateZ(70px)
+        scale(1.08)
+        rotateZ(-3deg);
+
+    box-shadow:
+        0 25px 40px -10px var(--accent-glow);
+}
+
+
+/* =========================================================
+   📅 YEAR — KELUAR
+========================================================= */
+
 .timeline-year {
+    display: inline-block;
 
     font-size: 0.8rem;
 
@@ -1536,21 +1564,57 @@ body::after {
     letter-spacing: 1.5px;
 
     text-transform: uppercase;
+
+    transform:
+        translateZ(55px);
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.timeline-card:hover .timeline-year {
+    transform:
+        translateZ(80px);
+}
+
+
+/* =========================================================
+   📝 TITLE — MENONJOL
+========================================================= */
+
+.timeline-content {
+    transform-style: preserve-3d;
 }
 
 
 .timeline-content h3 {
-
     font-size: 1.35rem;
 
     font-weight: 800;
 
     margin-top: 0.3rem;
+
+    transform:
+        translateZ(70px);
+
+    transition:
+        transform 0.3s ease;
 }
 
 
-.timeline-content h4 {
+.timeline-card:hover
+.timeline-content h3 {
+    transform:
+        translateZ(100px);
+}
 
+
+/* =========================================================
+   🏫 SUBTITLE
+========================================================= */
+
+.timeline-content h4 {
     font-size: 1rem;
 
     color: var(--text-secondary);
@@ -1558,16 +1622,118 @@ body::after {
     font-weight: 600;
 
     margin-bottom: 0.8rem;
+
+    transform:
+        translateZ(50px);
+
+    transition:
+        transform 0.3s ease;
 }
 
 
-.timeline-content p {
+.timeline-card:hover
+.timeline-content h4 {
+    transform:
+        translateZ(75px);
+}
 
+
+/* =========================================================
+   📖 DESCRIPTION
+========================================================= */
+
+.timeline-content p {
     font-size: 0.98rem;
 
     color: var(--text-secondary);
 
     line-height: 1.7;
+
+    transform:
+        translateZ(35px);
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.timeline-card:hover
+.timeline-content p {
+    transform:
+        translateZ(55px);
+}
+
+
+/* =========================================================
+   ✨ GLASS REFLECTION
+========================================================= */
+
+.timeline-card::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: inherit;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.22),
+            transparent 30%,
+            transparent 65%,
+            rgba(255, 255, 255, 0.06)
+        );
+
+    opacity: 0;
+
+    transform:
+        translateZ(5px);
+
+    transition:
+        opacity 0.3s ease;
+}
+
+
+.timeline-card:hover::before {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   📱 MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .timeline-card {
+        perspective: none;
+        transform-style: flat;
+        will-change: auto;
+
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+
+    .timeline-card:hover {
+        transform:
+            translateY(-5px) !important;
+    }
+
+
+    .timeline-icon,
+    .timeline-year,
+    .timeline-content h3,
+    .timeline-content h4,
+    .timeline-content p {
+        transform: none !important;
+    }
+
 }
 
 
