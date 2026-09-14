@@ -1,5 +1,7 @@
 <?php
+
 $pesan = "Akses ditolak. Hanya admin yang dapat mengakses halaman ini.";
+
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +17,7 @@ $pesan = "Akses ditolak. Hanya admin yang dapat mengakses halaman ini.";
 
     <title>Akses Ditolak</title>
 
-    <link rel="stylesheet" href="akses_ditolak.css">
+    <link rel="stylesheet" href="akses-ditolak.css">
 </head>
 
 <body>

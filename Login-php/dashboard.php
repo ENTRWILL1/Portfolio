@@ -1,8 +1,7 @@
 <?php
-session_start();
 
-require 'cek_session.php';
-// Proteksi halaman
+require_once 'cek_session.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -38,3 +37,5 @@ require 'cek_session.php';
     </a>
 
 </body>
+
+</html>

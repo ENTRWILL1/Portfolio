@@ -1,50 +1,46 @@
 <?php
+
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // asumsi sudah ada proses cek ke database
-    if ($username == 'admin' && $password == '111') {
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
 
-        // simpan data ke session
+    if ($username === 'admin' && $password === '111') {
+
         $_SESSION['is_login'] = true;
-        $_SESSION['username'] = $username;
+        $_SESSION['username'] = 'admin';
         $_SESSION['role'] = 'admin';
 
         header('Location: dashboard.php');
-        exit();
-        
-    } elseif ($username == 'user' && $password == '222') {
+        exit;
 
-        // simpan data ke session
+    } elseif ($username === 'user' && $password === '222') {
+
         $_SESSION['is_login'] = true;
-        $_SESSION['username'] = $username;
+        $_SESSION['username'] = 'user';
         $_SESSION['role'] = 'user';
 
         header('Location: dashboard.php');
-        exit();    
+        exit;
+
     } else {
+
         $error = 'Username atau password salah';
+
     }
 }
+
 ?>
 
-```html
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
     <link rel="stylesheet" href="login.css">
 </head>
 
@@ -52,18 +48,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <h2>Login</h2>
 
-    <?php
-    if (isset($error)) {
-        echo "<p style='color:red;'>" . htmlspecialchars($error) . "</p>";
-    }
-    ?>
+    <?php if (isset($error)): ?>
+        <p class="error-message">
+            <?php echo htmlspecialchars($error); ?>
+        </p>
+    <?php endif; ?>
 
-    <form method="POST">
+    <form method="POST" action="login.php">
 
         <input
             type="text"
             name="username"
             placeholder="Username"
+            autocomplete="username"
             required
         >
 
@@ -71,16 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             type="password"
             name="password"
             placeholder="Password"
+            autocomplete="current-password"
             required
         >
 
-        <button type="submit">
-            Login
-        </button>
+        <button type="submit">Login</button>
 
     </form>
 
 </body>
 
 </html>
-```
