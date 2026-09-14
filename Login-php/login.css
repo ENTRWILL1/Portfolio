@@ -1,73 +1,13 @@
-```php
-<?php
-    // Pesan akses ditolak
-    $pesan = "Akses ditolak. Hanya admin yang dapat mengakses halaman ini.";
-?>
 
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="Halaman akses ditolak"
-    >
-
-    <title>Akses Ditolak</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="akses_ditolak.css">
-</head>
-
-<body>
-
-    <main class="access-card">
-
-        <div class="access-icon">
-            🔒
-        </div>
-
-        <div class="access-label">
-            ACCESS DENIED
-        </div>
-
-        <h1>
-            Akses Ditolak
-        </h1>
-
-        <p>
-            <?php echo htmlspecialchars($pesan); ?>
-        </p>
-
-        <a href="login.php" class="back-button">
-            ← Kembali ke Login
-        </a>
-
-    </main>
-
-</body>
-
-</html>
-```
-
-CSS yang tadi juga perlu sedikit disesuaikan supaya elemen HTML baru ini tampil rapi. Ganti `akses_ditolak.css` dengan versi ini:
-
-```css
 /* =========================================================
-   🌿 AKSES DITOLAK
-   Modern Glass • Nature • Portfolio Style
+   🌿 PHP LOGIN
+   Modern Glass • Nature • Emerald • Portfolio Style
 ========================================================= */
 
 :root {
     --bg-primary: #f0f4f1;
     --bg-card: rgba(255, 255, 255, 0.78);
+    --bg-card-hover: rgba(255, 255, 255, 0.92);
 
     --text-primary: #1b2e23;
     --text-secondary: #3d5a49;
@@ -79,6 +19,10 @@ CSS yang tadi juga perlu sedikit disesuaikan supaya elemen HTML baru ini tampil 
     --nature-amber: #d97706;
 
     --border: rgba(46, 117, 89, 0.15);
+
+    --card-shadow:
+        0 20px 35px -10px rgba(27, 46, 35, 0.08),
+        0 10px 15px -5px rgba(27, 46, 35, 0.04);
 
     --gradient-hero:
         linear-gradient(
@@ -96,20 +40,18 @@ CSS yang tadi juga perlu sedikit disesuaikan supaya elemen HTML baru ini tampil 
             #10b981 50%,
             #b45309 100%
         );
-
-    --card-shadow:
-        0 20px 35px -10px rgba(27, 46, 35, 0.08),
-        0 10px 15px -5px rgba(27, 46, 35, 0.04);
 }
 
 
 /* =========================================================
    🌙 DARK MODE
+   Aktifkan dengan <body class="dark">
 ========================================================= */
 
 body.dark {
     --bg-primary: #09130e;
     --bg-card: rgba(15, 28, 21, 0.75);
+    --bg-card-hover: rgba(24, 43, 33, 0.88);
 
     --text-primary: #ecfdf5;
     --text-secondary: #a7f3d0;
@@ -162,6 +104,10 @@ body.dark {
    BODY
 ========================================================= */
 
+html {
+    min-height: 100%;
+}
+
 body {
     min-height: 100vh;
 
@@ -172,7 +118,6 @@ body {
     padding: 24px;
 
     position: relative;
-
     overflow: hidden;
 
     font-family:
@@ -183,10 +128,10 @@ body {
 
     line-height: 1.6;
 
-    color: var(--text-primary);
-
     background:
         var(--bg-primary);
+
+    color: var(--text-primary);
 
     transition:
         background-color 0.5s ease,
@@ -195,7 +140,7 @@ body {
 
 
 /* =========================================================
-   🌿 NATURE BACKGROUND
+   🌿 ORGANIC BACKGROUND
 ========================================================= */
 
 body::before {
@@ -240,8 +185,8 @@ body::after {
 
     position: fixed;
 
-    bottom: -18%;
     right: -12%;
+    bottom: -18%;
 
     width: 55vw;
     height: 55vw;
@@ -279,6 +224,11 @@ body::after {
             translate(0, 0)
             rotate(0deg)
             scale(1);
+
+        border-radius:
+            40% 60% 70% 30%
+            /
+            40% 50% 60% 70%;
     }
 
     50% {
@@ -286,6 +236,11 @@ body::after {
             translate(80px, 60px)
             rotate(90deg)
             scale(1.15);
+
+        border-radius:
+            60% 30% 50% 70%
+            /
+            30% 60% 40% 50%;
     }
 
     100% {
@@ -293,28 +248,57 @@ body::after {
             translate(140px, -40px)
             rotate(180deg)
             scale(0.9);
+
+        border-radius:
+            30% 70% 40% 60%
+            /
+            50% 40% 70% 30%;
     }
 }
 
 
 /* =========================================================
-   🧊 ACCESS CARD
+   🔐 LOGIN TITLE
 ========================================================= */
 
-.access-card {
-    width: min(100%, 500px);
+h2 {
+    position: absolute;
 
-    padding:
-        3.2rem
-        2.8rem;
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -210px);
+
+    z-index: 5;
+
+    font-size: 2rem;
+    font-weight: 800;
+
+    white-space: nowrap;
+
+    background: var(--gradient-text);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* =========================================================
+   🧊 LOGIN FORM
+========================================================= */
+
+form {
+    width: min(100%, 430px);
+
+    padding: 2.8rem;
 
     position: relative;
-    z-index: 2;
+    z-index: 3;
 
-    text-align: center;
-
-    background:
-        var(--bg-card);
+    background: var(--bg-card);
 
     border:
         1px solid
@@ -322,8 +306,7 @@ body::after {
 
     border-radius: 28px;
 
-    box-shadow:
-        var(--card-shadow);
+    box-shadow: var(--card-shadow);
 
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
@@ -331,7 +314,7 @@ body::after {
     overflow: hidden;
 
     animation:
-        accessEnter
+        loginEnter
         0.8s
         cubic-bezier(
             0.16,
@@ -343,11 +326,9 @@ body::after {
 }
 
 
-/* =========================================================
-   ✨ GRADIENT LINE
-========================================================= */
+/* garis gradient atas */
 
-.access-card::before {
+form::before {
     content: "";
 
     position: absolute;
@@ -358,135 +339,159 @@ body::after {
     width: 100%;
     height: 5px;
 
-    background:
-        var(--gradient-hero);
+    background: var(--gradient-hero);
 }
 
 
-/* =========================================================
-   🔒 ICON
-========================================================= */
+/* glow dalam */
 
-.access-icon {
-    width: 85px;
-    height: 85px;
+form::after {
+    content: "";
 
-    margin:
-        0
-        auto
-        1.3rem;
+    position: absolute;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 180px;
+    height: 180px;
 
-    border-radius: 24px;
+    top: -100px;
+    right: -100px;
 
-    font-size: 2.5rem;
+    border-radius: 50%;
 
     background:
-        var(--gradient-hero);
-
-    box-shadow:
-        0 15px 30px -8px
-        var(--accent-glow);
-
-    animation:
-        iconFloat
-        3s
-        ease-in-out
-        infinite;
-}
-
-
-/* =========================================================
-   LABEL
-========================================================= */
-
-.access-label {
-    margin-bottom: 0.5rem;
-
-    color:
-        var(--nature-amber);
-
-    font-size: 0.75rem;
-
-    font-weight: 800;
-
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   TITLE
-========================================================= */
-
-.access-card h1 {
-    margin-bottom: 0.8rem;
-
-    font-size:
-        clamp(
-            2rem,
-            6vw,
-            2.7rem
+        radial-gradient(
+            circle,
+            var(--accent-glow),
+            transparent 70%
         );
 
-    font-weight: 800;
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+input {
+    width: 100%;
+
+    padding: 0.95rem 1rem;
+
+    margin-bottom: 1rem;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 14px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 0.95rem;
+
+    color: var(--text-primary);
 
     background:
-        var(--gradient-text);
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
 
-    -webkit-background-clip: text;
-    background-clip: text;
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease,
+        background 0.3s ease;
+}
 
-    -webkit-text-fill-color: transparent;
+
+/* dark input */
+
+body.dark input {
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.18
+        );
+}
+
+
+input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.75;
+}
+
+
+input:hover {
+    border-color: var(--accent);
+}
+
+
+input:focus {
+    border-color: var(--accent);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.8
+        );
+
+    box-shadow:
+        0 0 0 4px
+        var(--accent-glow);
+
+    transform:
+        translateY(-2px);
+}
+
+
+body.dark input:focus {
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.25
+        );
 }
 
 
 /* =========================================================
-   MESSAGE
+   🚀 LOGIN BUTTON
 ========================================================= */
 
-.access-card p {
-    margin-bottom: 2rem;
+button {
+    width: 100%;
 
-    color:
-        var(--text-secondary);
+    padding: 0.95rem 1.2rem;
 
-    font-size: 0.98rem;
+    margin-top: 0.3rem;
 
-    line-height: 1.75;
-}
-
-
-/* =========================================================
-   🔙 BACK BUTTON
-========================================================= */
-
-.back-button {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 0.5rem;
-
-    padding:
-        0.9rem
-        1.7rem;
+    border: none;
 
     border-radius: 15px;
 
-    text-decoration: none;
-
-    color: #ffffff;
-
     background:
         var(--gradient-hero);
 
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 0.95rem;
+
     font-weight: 800;
+
+    cursor: pointer;
 
     box-shadow:
         0 10px 25px -5px
@@ -504,10 +509,10 @@ body::after {
 }
 
 
-.back-button:hover {
+button:hover {
     transform:
         translateY(-4px)
-        scale(1.03);
+        scale(1.02);
 
     box-shadow:
         0 18px 30px -5px
@@ -515,17 +520,65 @@ body::after {
 }
 
 
-.back-button:active {
+button:active {
     transform:
-        translateY(-1px);
+        translateY(-1px)
+        scale(0.99);
 }
 
 
 /* =========================================================
-   ✨ ANIMATIONS
+   ❌ ERROR MESSAGE
 ========================================================= */
 
-@keyframes accessEnter {
+form p {
+    margin-bottom: 1.2rem;
+
+    padding: 0.8rem 1rem;
+
+    border:
+        1px solid
+        rgba(220, 38, 38, 0.18);
+
+    border-radius: 13px;
+
+    background:
+        rgba(
+            239,
+            68,
+            68,
+            0.10
+        );
+
+    color:
+        #dc2626;
+
+    font-size: 0.85rem;
+
+    font-weight: 700;
+
+    text-align: center;
+}
+
+
+body.dark form p {
+    color: #fca5a5;
+
+    background:
+        rgba(
+            239,
+            68,
+            68,
+            0.12
+        );
+}
+
+
+/* =========================================================
+   ✨ ANIMATION
+========================================================= */
+
+@keyframes loginEnter {
 
     from {
         opacity: 0;
@@ -545,23 +598,6 @@ body::after {
 }
 
 
-@keyframes iconFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0)
-            rotate(0deg);
-    }
-
-    50% {
-        transform:
-            translateY(-8px)
-            rotate(3deg);
-    }
-}
-
-
 /* =========================================================
    📱 MOBILE
 ========================================================= */
@@ -572,35 +608,43 @@ body::after {
         padding: 18px;
     }
 
-    .access-card {
-        padding:
-            2.4rem
-            1.5rem;
+    h2 {
+        font-size: 1.65rem;
+
+        transform:
+            translate(-50%, -185px);
+    }
+
+    form {
+        width: 100%;
+
+        padding: 2rem 1.4rem;
 
         border-radius: 23px;
     }
 
-    .access-icon {
-        width: 72px;
-        height: 72px;
-
-        font-size: 2.1rem;
+    input {
+        padding: 0.9rem;
     }
 
-    .access-label {
-        font-size: 0.68rem;
+    button {
+        padding: 0.9rem;
+    }
+}
+
+
+@media (max-width: 380px) {
+
+    h2 {
+        font-size: 1.45rem;
+
+        transform:
+            translate(-50%, -175px);
     }
 
-    .access-card h1 {
-        font-size: 2rem;
-    }
-
-    .access-card p {
-        font-size: 0.9rem;
-    }
-
-    .back-button {
-        width: 100%;
+    form {
+        padding:
+            1.8rem 1.15rem;
     }
 }
 
@@ -621,10 +665,4 @@ body::after {
         transition-duration: 0.01ms !important;
     }
 }
-```
 
-Sekarang alurnya jadi:
-
-`user biasa → dashboard.php → cek_session.php → akses_ditolak.php`
-
-dan halaman akses ditolak punya tampilan sendiri. Logika redirect kamu memang sudah mengarah ke `akses_ditolak.php` ketika `$_SESSION['role']` bukan `admin`.

@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="id">
+<link rel="stylesheet" href="login.css">
 <body>
     <h2>Login</h2>
     <?php if (isset($error)) { echo "<p style='color:red;'>" . htmlspecialchars($error) . "</p>"; } ?>
