@@ -1,116 +1,12 @@
 /* =========================================================
-   🌿 LOGIN PAGE
-   Modern Glass • Nature • Emerald • Responsive
+   LOGIN
 ========================================================= */
 
-
-/* =========================================================
-   🎨 DESIGN SYSTEM
-========================================================= */
-
-:root {
-    --bg-primary: #f0f4f1;
-
-    --bg-card: rgba(255, 255, 255, 0.78);
-    --bg-input: rgba(255, 255, 255, 0.72);
-
-    --text-primary: #1b2e23;
-    --text-secondary: #3d5a49;
-
-    --accent: #10b981;
-    --accent-hover: #059669;
-    --accent-glow: rgba(16, 185, 129, 0.35);
-
-    --nature-amber: #d97706;
-
-    --border: rgba(46, 117, 89, 0.15);
-
-    --card-shadow:
-        0 20px 35px -10px rgba(27, 46, 35, 0.08),
-        0 10px 15px -5px rgba(27, 46, 35, 0.04);
-
-    --gradient-hero:
-        linear-gradient(
-            135deg,
-            #10b981 0%,
-            #059669 40%,
-            #047857 70%,
-            #d97706 100%
-        );
-
-    --gradient-text:
-        linear-gradient(
-            135deg,
-            #047857 0%,
-            #10b981 50%,
-            #b45309 100%
-        );
-}
-
-
-/* =========================================================
-   🌙 DARK MODE
-   Bisa digunakan jika body diberi class="dark"
-========================================================= */
-
-body.dark {
-    --bg-primary: #09130e;
-
-    --bg-card: rgba(15, 28, 21, 0.78);
-    --bg-input: rgba(5, 15, 10, 0.40);
-
-    --text-primary: #ecfdf5;
-    --text-secondary: #a7f3d0;
-
-    --accent: #34d399;
-    --accent-hover: #10b981;
-    --accent-glow: rgba(52, 211, 153, 0.35);
-
-    --nature-amber: #f59e0b;
-
-    --border: rgba(52, 211, 153, 0.15);
-
-    --card-shadow:
-        0 20px 35px -10px rgba(0, 0, 0, 0.7),
-        0 10px 15px -5px rgba(0, 0, 0, 0.5);
-
-    --gradient-hero:
-        linear-gradient(
-            135deg,
-            #059669 0%,
-            #10b981 40%,
-            #34d399 70%,
-            #f59e0b 100%
-        );
-
-    --gradient-text:
-        linear-gradient(
-            135deg,
-            #6ee7b7 0%,
-            #34d399 50%,
-            #fbbf24 100%
-        );
-}
-
-
-/* =========================================================
-   🔄 RESET
-========================================================= */
-
-*,
-*::before,
-*::after {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-
-html {
-    min-height: 100%;
-    overflow-x: hidden;
-}
-
 
 body {
     min-height: 100vh;
@@ -118,668 +14,205 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 
-    padding: 24px;
+    padding: 20px;
 
-    position: relative;
+    font-family: "Segoe UI", Arial, sans-serif;
 
-    overflow: hidden;
-
-    font-family:
-        "Plus Jakarta Sans",
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
-    line-height: 1.6;
-
-    color: var(--text-primary);
-
-    background:
-        var(--bg-primary);
-
-    transition:
-        background-color 0.5s ease,
-        color 0.5s ease;
-}
-
-
-/* =========================================================
-   🌿 ORGANIC BACKGROUND
-========================================================= */
-
-body::before {
-    content: "";
-
-    position: fixed;
-
-    width: 65vw;
-    height: 65vw;
-
-    max-width: 750px;
-    max-height: 750px;
-
-    top: -18%;
-    left: -15%;
-
-    border-radius:
-        40% 60% 70% 30%
-        /
-        40% 50% 60% 70%;
+    color: #1b2e23;
 
     background:
         radial-gradient(
-            circle,
-            var(--accent-glow) 0%,
-            transparent 70%
-        );
-
-    z-index: -2;
-
-    pointer-events: none;
-
-    animation:
-        organicMorph
-        18s
-        infinite
-        alternate
-        ease-in-out;
-}
-
-
-body::after {
-    content: "";
-
-    position: fixed;
-
-    width: 55vw;
-    height: 55vw;
-
-    max-width: 650px;
-    max-height: 650px;
-
-    right: -15%;
-    bottom: -20%;
-
-    border-radius:
-        60% 40% 30% 70%
-        /
-        50% 30% 70% 40%;
-
-    background:
+            circle at 15% 20%,
+            rgba(16, 185, 129, 0.18),
+            transparent 35%
+        ),
         radial-gradient(
-            circle,
-            rgba(217, 119, 6, 0.15) 0%,
-            transparent 70%
-        );
-
-    z-index: -2;
-
-    pointer-events: none;
-
-    animation:
-        organicMorph
-        22s
-        infinite
-        alternate-reverse
-        ease-in-out;
+            circle at 85% 80%,
+            rgba(217, 119, 6, 0.12),
+            transparent 35%
+        ),
+        #f0f4f1;
 }
 
 
 /* =========================================================
-   🌊 BACKGROUND ANIMATION
-========================================================= */
-
-@keyframes organicMorph {
-
-    0% {
-        transform:
-            translate(0, 0)
-            rotate(0deg)
-            scale(1);
-
-        border-radius:
-            40% 60% 70% 30%
-            /
-            40% 50% 60% 70%;
-    }
-
-    50% {
-        transform:
-            translate(80px, 60px)
-            rotate(90deg)
-            scale(1.15);
-
-        border-radius:
-            60% 30% 50% 70%
-            /
-            30% 60% 40% 50%;
-    }
-
-    100% {
-        transform:
-            translate(140px, -40px)
-            rotate(180deg)
-            scale(0.9);
-
-        border-radius:
-            30% 70% 40% 60%
-            /
-            50% 40% 70% 30%;
-    }
-}
-
-
-/* =========================================================
-   🔐 LOGIN TITLE
+   JUDUL
 ========================================================= */
 
 h2 {
-    position: absolute;
+    margin-bottom: 20px;
 
-    top: 50%;
-    left: 50%;
+    color: #047857;
 
-    transform:
-        translate(-50%, -245px);
-
-    margin: 0;
-
-    z-index: 5;
-
-    font-size: clamp(1.8rem, 5vw, 2.35rem);
-
+    font-size: 32px;
     font-weight: 800;
 
-    letter-spacing: -0.5px;
-
-    white-space: nowrap;
-
-    background:
-        var(--gradient-text);
-
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    -webkit-text-fill-color: transparent;
-
-    animation:
-        titleEnter
-        0.8s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        )
-        both;
+    text-align: center;
 }
 
 
 /* =========================================================
-   🧊 FORM GLASS CARD
+   FORM
 ========================================================= */
 
 form {
-    width: min(100%, 430px);
+    width: 100%;
+    max-width: 400px;
 
-    padding: 3rem 2.6rem;
+    padding: 30px;
 
-    position: relative;
+    background: rgba(255, 255, 255, 0.9);
 
-    z-index: 3;
+    border: 1px solid rgba(46, 117, 89, 0.15);
 
-    background:
-        var(--bg-card);
-
-    border:
-        1px solid
-        var(--border);
-
-    border-radius: 28px;
+    border-radius: 22px;
 
     box-shadow:
-        var(--card-shadow);
-
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
-
-    overflow: hidden;
-
-    animation:
-        formEnter
-        0.85s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        )
-        both;
+        0 20px 40px rgba(27, 46, 35, 0.12);
 }
 
 
 /* =========================================================
-   ✨ TOP GRADIENT LINE
-========================================================= */
-
-form::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 5px;
-
-    background:
-        var(--gradient-hero);
-}
-
-
-/* =========================================================
-   🌱 INNER GLOW
-========================================================= */
-
-form::after {
-    content: "";
-
-    position: absolute;
-
-    width: 220px;
-    height: 220px;
-
-    top: -140px;
-    right: -120px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            var(--accent-glow),
-            transparent 70%
-        );
-
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   📝 ERROR MESSAGE
-========================================================= */
-
-form p {
-    position: relative;
-    z-index: 2;
-
-    margin-bottom: 1.25rem;
-
-    padding: 0.8rem 1rem;
-
-    border:
-        1px solid
-        rgba(239, 68, 68, 0.18);
-
-    border-radius: 14px;
-
-    background:
-        rgba(239, 68, 68, 0.10);
-
-    color: #dc2626;
-
-    text-align: center;
-
-    font-size: 0.85rem;
-
-    font-weight: 700;
-
-    line-height: 1.5;
-}
-
-
-body.dark form p {
-    background:
-        rgba(239, 68, 68, 0.12);
-
-    color: #fca5a5;
-
-    border-color:
-        rgba(252, 165, 165, 0.16);
-}
-
-
-/* =========================================================
-   ⌨️ INPUT
+   INPUT
 ========================================================= */
 
 input {
     width: 100%;
-    display: block;
-    padding: 1rem 1.05rem;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border);
-    border-radius: 15px;
+
+    padding: 14px 15px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #c8ddd1;
+
+    border-radius: 12px;
+
     outline: none;
-    background: var(--bg-input);
-    color: var(--text-primary);
+
+    background: #ffffff;
+
+    color: #1b2e23;
+
     font-family: inherit;
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 15px;
 
     transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        background 0.3s ease;
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 
 input::placeholder {
-    color:
-        var(--text-secondary);
-
-    opacity: 0.72;
-
-    font-weight: 500;
-}
-
-
-input:hover {
-    border-color:
-        rgba(16, 185, 129, 0.45);
+    color: #7b9184;
 }
 
 
 input:focus {
-    border-color:
-        var(--accent);
-
-    background:
-        var(--bg-card);
-
-    transform:
-        translateY(-2px);
+    border-color: #10b981;
 
     box-shadow:
         0 0 0 4px
-        var(--accent-glow);
+        rgba(16, 185, 129, 0.12);
 }
 
 
 /* =========================================================
-   🚀 LOGIN BUTTON
+   BUTTON
 ========================================================= */
 
 button {
     width: 100%;
 
-    display: block;
-
-    padding: 1rem 1.2rem;
-
-    margin-top: 0.25rem;
+    padding: 14px;
 
     border: none;
 
-    border-radius: 15px;
-
-    outline: none;
+    border-radius: 12px;
 
     background:
-        var(--gradient-hero);
+        linear-gradient(
+            135deg,
+            #10b981,
+            #059669
+        );
 
     color: #ffffff;
 
     font-family: inherit;
-
-    font-size: 0.95rem;
-
-    font-weight: 800;
+    font-size: 16px;
+    font-weight: 700;
 
     cursor: pointer;
 
-    box-shadow:
-        0 10px 25px -5px
-        var(--accent-glow);
-
     transition:
-        transform 0.35s
-        cubic-bezier(
-            0.175,
-            0.885,
-            0.32,
-            1.275
-        ),
-        box-shadow 0.3s ease,
-        filter 0.3s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
 button:hover {
-    transform:
-        translateY(-4px)
-        scale(1.02);
+    transform: translateY(-2px);
 
     box-shadow:
-        0 18px 32px -5px
-        var(--accent-glow);
-
-    filter:
-        brightness(1.04);
+        0 10px 25px
+        rgba(16, 185, 129, 0.25);
 }
 
 
 button:active {
-    transform:
-        translateY(-1px)
-        scale(0.99);
+    transform: translateY(0);
 }
 
 
 /* =========================================================
-   ✨ BUTTON SHINE
+   ERROR
 ========================================================= */
 
-button {
-    position: relative;
+form + p,
+body > p {
+    width: 100%;
+    max-width: 400px;
 
-    overflow: hidden;
-}
+    margin-bottom: 15px;
 
+    padding: 10px 12px;
 
-button::before {
-    content: "";
+    border-radius: 10px;
 
-    position: absolute;
+    background: #ffe8e8;
 
-    top: 0;
-    left: -120%;
+    color: #c62828;
 
-    width: 70%;
-    height: 100%;
+    text-align: center;
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.3),
-            transparent
-        );
-
-    transform:
-        skewX(-20deg);
-
-    transition:
-        left 0.7s ease;
-}
-
-
-button:hover::before {
-    left: 140%;
+    font-size: 14px;
 }
 
 
 /* =========================================================
-   ✨ ENTRANCE ANIMATION
-========================================================= */
-
-@keyframes formEnter {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(35px)
-            scale(0.97);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-@keyframes titleEnter {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translate(-50%, -220px)
-            scale(0.94);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translate(-50%, -245px)
-            scale(1);
-    }
-}
-
-
-/* =========================================================
-   📱 TABLET
-========================================================= */
-
-@media (max-width: 768px) {
-
-    body {
-        padding: 20px;
-    }
-
-    h2 {
-        transform:
-            translate(-50%, -225px);
-    }
-
-    form {
-        width: min(100%, 410px);
-
-        padding:
-            2.5rem
-            2rem;
-
-        border-radius: 25px;
-    }
-}
-
-
-/* =========================================================
-   📱 MOBILE
+   MOBILE
 ========================================================= */
 
 @media (max-width: 480px) {
 
     body {
-        padding: 16px;
+        padding: 15px;
     }
 
     h2 {
-        font-size: 1.65rem;
-
-        transform:
-            translate(-50%, -205px);
+        font-size: 27px;
     }
 
     form {
-        width: 100%;
+        padding: 22px 18px;
 
-        padding:
-            2.2rem
-            1.3rem;
-
-        border-radius: 22px;
+        border-radius: 18px;
     }
 
-    input {
-        padding:
-            0.9rem
-            0.95rem;
-
-        font-size: 0.9rem;
-    }
-
+    input,
     button {
-        padding:
-            0.9rem
-            1rem;
-    }
-
-    form p {
-        font-size: 0.8rem;
-    }
-}
-
-
-/* =========================================================
-   📱 SMALL MOBILE
-========================================================= */
-
-@media (max-width: 360px) {
-
-    h2 {
-        font-size: 1.45rem;
-
-        transform:
-            translate(-50%, -190px);
-    }
-
-    form {
-        padding:
-            2rem
-            1rem;
-    }
-}
-
-
-/* =========================================================
-   ♿ REDUCE MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-
-        animation-duration:
-            0.01ms !important;
-
-        animation-iteration-count:
-            1 !important;
-
-        transition-duration:
-            0.01ms !important;
+        padding: 13px;
     }
 }
