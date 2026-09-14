@@ -31,17 +31,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+```html
 <!DOCTYPE html>
 <html lang="id">
-<link rel="stylesheet" href="login.css">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login</title>
+
+    <link rel="stylesheet" href="login.css">
+</head>
+
 <body>
+
     <h2>Login</h2>
-    <?php if (isset($error)) { echo "<p style='color:red;'>" . htmlspecialchars($error) . "</p>"; } ?>
-    
+
+    <?php
+    if (isset($error)) {
+        echo "<p style='color:red;'>" . htmlspecialchars($error) . "</p>";
+    }
+    ?>
+
     <form method="POST">
-        <input type="text" name="username" placeholder="Username" required><br><br>
-        <input type="password" name="password" placeholder="Password" required><br><br>
-        <button type="submit">Login</button>
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+        >
+
+        <button type="submit">
+            Login
+        </button>
+
     </form>
+
 </body>
+
 </html>
+```

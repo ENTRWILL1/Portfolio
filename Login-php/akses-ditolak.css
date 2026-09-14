@@ -1,5 +1,5 @@
 /* =========================================================
-   🌿 DASHBOARD
+   🌿 AKSES DITOLAK
    Modern Glass • Nature • Emerald • Responsive
 ========================================================= */
 
@@ -12,7 +12,6 @@
     --bg-primary: #f0f4f1;
 
     --bg-card: rgba(255, 255, 255, 0.78);
-    --bg-card-hover: rgba(255, 255, 255, 0.92);
 
     --text-primary: #1b2e23;
     --text-secondary: #3d5a49;
@@ -64,10 +63,8 @@ body.dark {
     --bg-card:
         rgba(15, 28, 21, 0.78);
 
-    --bg-card-hover:
-        rgba(24, 43, 33, 0.88);
-
-    --text-primary: #ecfdf5;
+    --text-primary:
+        #ecfdf5;
 
     --text-secondary:
         #a7f3d0;
@@ -132,15 +129,16 @@ html {
 }
 
 
+/* =========================================================
+   🌎 BODY
+========================================================= */
+
 body {
     min-height: 100vh;
 
     display: flex;
-
     justify-content: center;
     align-items: center;
-
-    flex-direction: column;
 
     padding: 24px;
 
@@ -263,6 +261,11 @@ body::after {
             translate(0, 0)
             rotate(0deg)
             scale(1);
+
+        border-radius:
+            40% 60% 70% 30%
+            /
+            40% 50% 60% 70%;
     }
 
     50% {
@@ -270,6 +273,11 @@ body::after {
             translate(80px, 60px)
             rotate(90deg)
             scale(1.15);
+
+        border-radius:
+            60% 30% 50% 70%
+            /
+            30% 60% 40% 50%;
     }
 
     100% {
@@ -277,32 +285,41 @@ body::after {
             translate(140px, -40px)
             rotate(180deg)
             scale(0.9);
+
+        border-radius:
+            30% 70% 40% 60%
+            /
+            50% 40% 70% 30%;
     }
 }
 
 
 /* =========================================================
-   🧊 DASHBOARD CARD
+   🧊 ACCESS CARD
 ========================================================= */
 
-body > h1,
-body > p {
-    width: min(100%, 760px);
+.access-card {
+    width: min(100%, 500px);
+
+    padding:
+        3.2rem
+        2.8rem;
 
     position: relative;
 
     z-index: 2;
 
+    text-align: center;
+
     background:
         var(--bg-card);
 
-    border-left:
+    border:
         1px solid
         var(--border);
 
-    border-right:
-        1px solid
-        var(--border);
+    border-radius:
+        28px;
 
     box-shadow:
         var(--card-shadow);
@@ -313,38 +330,157 @@ body > p {
     backdrop-filter:
         blur(24px);
 
-    text-align: center;
+    overflow: hidden;
+
+    animation:
+        cardEnter
+        0.8s
+        cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+        )
+        both;
 }
 
 
 /* =========================================================
-   👋 WELCOME TITLE
+   ✨ TOP GRADIENT
 ========================================================= */
 
-body > h1 {
-    padding:
-        3.2rem
-        2.5rem
-        0.7rem;
+.access-card::before {
+    content: "";
 
-    border-top:
-        1px solid
-        var(--border);
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background:
+        var(--gradient-hero);
+}
+
+
+/* =========================================================
+   🌟 INNER GLOW
+========================================================= */
+
+.access-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    top: -140px;
+    right: -120px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            var(--accent-glow),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   🔒 ICON
+========================================================= */
+
+.access-icon {
+    width: 86px;
+    height: 86px;
+
+    margin:
+        0
+        auto
+        1.35rem;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
 
     border-radius:
-        28px
-        28px
-        0
-        0;
+        24px;
+
+    background:
+        var(--gradient-hero);
+
+    font-size:
+        2.4rem;
+
+    line-height: 1;
+
+    box-shadow:
+        0 15px
+        30px
+        -8px
+        var(--accent-glow);
+
+    animation:
+        iconFloat
+        3s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================================================
+   🏷️ ACCESS LABEL
+========================================================= */
+
+.access-label {
+    margin-bottom:
+        0.45rem;
+
+    color:
+        var(--nature-amber);
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        3px;
+
+    text-transform:
+        uppercase;
+}
+
+
+/* =========================================================
+   📝 TITLE
+========================================================= */
+
+.access-card h1 {
+    margin-bottom:
+        0.8rem;
 
     font-size:
         clamp(
-            1.8rem,
-            5vw,
-            3rem
+            2rem,
+            6vw,
+            2.7rem
         );
 
-    font-weight: 800;
+    font-weight:
+        800;
+
+    line-height:
+        1.15;
 
     letter-spacing:
         -0.7px;
@@ -360,117 +496,56 @@ body > h1 {
 
     -webkit-text-fill-color:
         transparent;
-
-    overflow: hidden;
-
-    animation:
-        dashboardEnter
-        0.8s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        )
-        both;
 }
 
 
 /* =========================================================
-   ✨ GRADIENT LINE
+   📖 MESSAGE
 ========================================================= */
 
-body > h1::after {
-    content: "";
+.access-card p {
+    max-width:
+        400px;
 
-    position: absolute;
-
-    left: 0;
-    bottom: 0;
-
-    width: 100%;
-    height: 4px;
-
-    background:
-        var(--gradient-hero);
-}
-
-
-/* =========================================================
-   👤 ROLE
-========================================================= */
-
-body > p {
-    padding:
-        1rem
-        2.5rem
-        2.3rem;
-
-    border-bottom:
-        1px solid
-        var(--border);
-
-    border-radius:
+    margin:
         0
-        0
-        28px
-        28px;
+        auto
+        2rem;
 
     color:
         var(--text-secondary);
 
     font-size:
-        1rem;
+        0.98rem;
 
     font-weight:
-        600;
+        500;
 
-    animation:
-        dashboardEnter
-        0.95s
-        0.1s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        )
-        both;
+    line-height:
+        1.75;
 }
 
 
 /* =========================================================
-   🟢 ROLE HIGHLIGHT
+   🔙 BACK BUTTON
 ========================================================= */
 
-body > p::first-letter {
-    color:
-        var(--accent);
-}
+.back-button {
+    display:
+        inline-flex;
 
+    align-items:
+        center;
 
-/* =========================================================
-   🚪 LOGOUT BUTTON
-========================================================= */
+    justify-content:
+        center;
 
-body > a {
-    position: relative;
-
-    z-index: 5;
-
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    min-width: 150px;
-
-    margin-top:
-        1.5rem;
+    gap:
+        0.5rem;
 
     padding:
         0.9rem
-        1.8rem;
+        1.7rem;
 
     border:
         1px solid
@@ -500,6 +575,12 @@ body > a {
         -5px
         var(--accent-glow);
 
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
     transition:
         transform 0.35s
         cubic-bezier(
@@ -510,58 +591,24 @@ body > a {
         ),
         box-shadow 0.3s ease,
         filter 0.3s ease;
-
-    animation:
-        buttonEnter
-        1s
-        0.15s
-        cubic-bezier(
-            0.16,
-            1,
-            0.3,
-            1
-        )
-        both;
 }
 
 
-body > a:hover {
-    transform:
-        translateY(-4px)
-        scale(1.04);
+.back-button::before {
+    content:
+        "";
 
-    box-shadow:
-        0 18px
-        35px
-        -5px
-        var(--accent-glow);
-
-    filter:
-        brightness(1.05);
-}
-
-
-body > a:active {
-    transform:
-        translateY(-1px)
-        scale(0.99);
-}
-
-
-/* =========================================================
-   ✨ BUTTON SHINE
-========================================================= */
-
-body > a::before {
-    content: "";
-
-    position: absolute;
+    position:
+        absolute;
 
     top: 0;
     left: -120%;
 
-    width: 70%;
-    height: 100%;
+    width:
+        70%;
+
+    height:
+        100%;
 
     background:
         linear-gradient(
@@ -579,25 +626,40 @@ body > a::before {
 }
 
 
-body > a:hover::before {
-    left: 140%;
+.back-button:hover {
+    transform:
+        translateY(-4px)
+        scale(1.03);
+
+    box-shadow:
+        0 18px
+        35px
+        -5px
+        var(--accent-glow);
+
+    filter:
+        brightness(1.05);
+}
+
+
+.back-button:hover::before {
+    left:
+        140%;
+}
+
+
+.back-button:active {
+    transform:
+        translateY(-1px)
+        scale(0.99);
 }
 
 
 /* =========================================================
-   🌿 DECORATIVE EMOJIS
+   ✨ ANIMATIONS
 ========================================================= */
 
-body::marker {
-    display: none;
-}
-
-
-/* =========================================================
-   ✨ ENTRANCE ANIMATIONS
-========================================================= */
-
-@keyframes dashboardEnter {
+@keyframes cardEnter {
 
     from {
         opacity: 0;
@@ -617,22 +679,19 @@ body::marker {
 }
 
 
-@keyframes buttonEnter {
+@keyframes iconFloat {
 
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(25px)
-            scale(0.95);
-    }
-
-    to {
-        opacity: 1;
-
+    0%,
+    100% {
         transform:
             translateY(0)
-            scale(1);
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            translateY(-8px)
+            rotate(3deg);
     }
 }
 
@@ -644,39 +703,17 @@ body::marker {
 @media (max-width: 768px) {
 
     body {
-        padding: 20px;
+        padding:
+            20px;
     }
 
-    body > h1 {
+    .access-card {
+        width:
+            min(100%, 470px);
+
         padding:
-            2.7rem
-            1.8rem
-            0.7rem;
-
-        font-size:
+            2.8rem
             2rem;
-
-        border-radius:
-            24px
-            24px
-            0
-            0;
-    }
-
-    body > p {
-        padding:
-            0.9rem
-            1.8rem
-            2rem;
-
-        font-size:
-            0.95rem;
-
-        border-radius:
-            0
-            0
-            24px
-            24px;
     }
 }
 
@@ -692,47 +729,59 @@ body::marker {
             16px;
     }
 
-    body > h1 {
-        padding:
-            2.3rem
-            1.2rem
-            0.7rem;
-
-        font-size:
-            1.55rem;
-
-        border-radius:
-            22px
-            22px
-            0
-            0;
-    }
-
-    body > p {
-        padding:
-            0.8rem
-            1.2rem
-            1.7rem;
-
-        font-size:
-            0.85rem;
-
-        border-radius:
-            0
-            0
-            22px
-            22px;
-    }
-
-    body > a {
+    .access-card {
         width:
             100%;
 
-        margin-top:
-            1.2rem;
+        padding:
+            2.4rem
+            1.35rem;
 
-        text-align:
-            center;
+        border-radius:
+            23px;
+    }
+
+    .access-icon {
+        width:
+            72px;
+
+        height:
+            72px;
+
+        margin-bottom:
+            1.1rem;
+
+        border-radius:
+            20px;
+
+        font-size:
+            2rem;
+    }
+
+    .access-label {
+        font-size:
+            0.66rem;
+
+        letter-spacing:
+            2.5px;
+    }
+
+    .access-card h1 {
+        font-size:
+            2rem;
+    }
+
+    .access-card p {
+        font-size:
+            0.88rem;
+
+        margin-bottom:
+            1.6rem;
+    }
+
+    .back-button {
+        width:
+            100%;
     }
 }
 
@@ -743,14 +792,20 @@ body::marker {
 
 @media (max-width: 360px) {
 
-    body > h1 {
-        font-size:
-            1.35rem;
+    .access-card {
+        padding:
+            2rem
+            1rem;
     }
 
-    body > p {
+    .access-card h1 {
         font-size:
-            0.8rem;
+            1.75rem;
+    }
+
+    .access-card p {
+        font-size:
+            0.82rem;
     }
 }
 

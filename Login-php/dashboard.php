@@ -1,16 +1,40 @@
 <?php
 session_start();
-require 'cek_session.php'; // proteksi halaman (dibahas di bagian 5)
+
+require 'cek_session.php';
+// Proteksi halaman
 ?>
 
 <!DOCTYPE html>
-<html>
-<head><title>Dashboard</title></head>
-<link rel="stylesheet" href="dashboard.css">
-<body>
-    <h1>Selamat datang, <?php echo $_SESSION['username']; ?></h1>
-    <p>Role kamu: <?php echo $_SESSION['role']; ?></p>
+<html lang="id">
 
-    <a href="logout.php">Logout</a>
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <h1>
+        Selamat datang,
+        <?php echo htmlspecialchars($_SESSION['username']); ?>
+    </h1>
+
+    <p>
+        Role kamu:
+        <?php echo htmlspecialchars($_SESSION['role']); ?>
+    </p>
+
+    <a href="logout.php">
+        Logout
+    </a>
+
 </body>
-</html>
