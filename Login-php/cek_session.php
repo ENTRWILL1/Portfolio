@@ -1,6 +1,5 @@
 <?php
 
-// WAJIB menjadi bagian paling atas file
 session_start();
 
 // Belum login
