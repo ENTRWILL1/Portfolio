@@ -9,34 +9,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
+    // LOGIN ADMIN
     if ($username === 'admin' && $password === '111') {
+
+        session_regenerate_id(true);
 
         $_SESSION['is_login'] = true;
         $_SESSION['username'] = 'admin';
         $_SESSION['role'] = 'admin';
 
-        // Paksa session disimpan
-        session_write_close();
-
         header('Location: dashboard.php');
         exit;
     }
 
+    // LOGIN USER
     elseif ($username === 'user' && $password === '222') {
+
+        session_regenerate_id(true);
 
         $_SESSION['is_login'] = true;
         $_SESSION['username'] = 'user';
         $_SESSION['role'] = 'user';
 
-        session_write_close();
-
         header('Location: dashboard.php');
         exit;
     }
 
+    // LOGIN SALAH
     else {
 
-        $error = 'Username atau password salah.';
+        $error = 'Username atau password salah';
     }
 }
 

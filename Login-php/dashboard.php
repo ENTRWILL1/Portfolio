@@ -44,13 +44,17 @@ require_once 'cek_session.php';
 
         <div class="dashboard-actions">
 
-            <!-- Kembali ke Portfolio -->
-            <a href="index.html" class="portfolio-button">
+            <a
+                href="index.html"
+                class="portfolio-button"
+            >
                 🌿 Kembali ke Portfolio
             </a>
 
-            <!-- Logout -->
-            <a href="logout.php" class="logout-button">
+            <a
+                href="logout.php"
+                class="logout-button"
+            >
                 Logout
             </a>
 
