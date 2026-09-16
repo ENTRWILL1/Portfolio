@@ -1,44 +1,61 @@
 <?php
 
-session_start();
+require_once 'auth.php';
 
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $username = trim($_POST['username'] ?? '');
+    $username = trim(
+        $_POST['username'] ?? ''
+    );
+
     $password = $_POST['password'] ?? '';
 
-    // LOGIN ADMIN
-    if ($username === 'admin' && $password === '111') {
 
-        session_regenerate_id(true);
+    // ADMIN
+    if (
+        $username === 'admin'
+        && $password === '111'
+    ) {
 
-        $_SESSION['is_login'] = true;
-        $_SESSION['username'] = 'admin';
-        $_SESSION['role'] = 'admin';
+        setAuthCookie(
+            'admin',
+            'admin'
+        );
 
-        header('Location: dashboard.php');
+        header(
+            'Location: dashboard.php'
+        );
+
         exit;
     }
 
-    // LOGIN USER
-    elseif ($username === 'user' && $password === '222') {
 
-        session_regenerate_id(true);
+    // USER
+    elseif (
+        $username === 'user'
+        && $password === '222'
+    ) {
 
-        $_SESSION['is_login'] = true;
-        $_SESSION['username'] = 'user';
-        $_SESSION['role'] = 'user';
+        setAuthCookie(
+            'user',
+            'user'
+        );
 
-        header('Location: dashboard.php');
+        header(
+            'Location: dashboard.php'
+        );
+
         exit;
     }
 
-    // LOGIN SALAH
+
+    // SALAH
     else {
 
-        $error = 'Username atau password salah';
+        $error =
+            'Username atau password salah';
     }
 }
 
@@ -48,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -57,7 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <title>Login</title>
 
-    <link rel="stylesheet" href="login.css">
+    <link
+        rel="stylesheet"
+        href="login.css"
+    >
+
 </head>
 
 <body>
@@ -69,12 +91,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if ($error !== ''): ?>
 
             <p class="error-message">
-                <?php echo htmlspecialchars($error); ?>
+                <?php
+                echo htmlspecialchars($error);
+                ?>
             </p>
 
         <?php endif; ?>
 
-        <form method="POST" action="login.php">
+        <form
+            method="POST"
+            action="login.php"
+        >
 
             <input
                 type="text"

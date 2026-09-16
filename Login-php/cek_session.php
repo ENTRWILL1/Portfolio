@@ -1,21 +1,39 @@
 <?php
 
-session_start();
+require_once 'auth.php';
+
+$user = getAuthUser();
+
 
 // Belum login
-if (
-    !isset($_SESSION['is_login']) ||
-    $_SESSION['is_login'] !== true
-) {
-    header('Location: login.php');
+if ($user === null) {
+
+    header(
+        'Location: login.php'
+    );
+
     exit;
 }
+
 
 // Bukan admin
 if (
-    !isset($_SESSION['role']) ||
-    $_SESSION['role'] !== 'admin'
+    $user['role'] !== 'admin'
 ) {
-    header('Location: akses_ditolak.php');
+
+    header(
+        'Location: akses_ditolak.php'
+    );
+
     exit;
 }
+
+
+/*
+|--------------------------------------------------------------------------
+| Data user untuk dashboard
+|--------------------------------------------------------------------------
+*/
+
+$username = $user['username'];
+$role = $user['role'];

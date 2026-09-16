@@ -1,13 +1,11 @@
 <?php
 
-session_start();
+require_once 'auth.php';
 
-// Hapus semua data session
-$_SESSION = [];
+clearAuthCookie();
 
-// Hancurkan session
-session_destroy();
+header(
+    'Location: login.php'
+);
 
-// Kembali ke halaman login
-header('Location: login.php');
 exit;

@@ -18,7 +18,10 @@ require_once 'cek_session.php';
 
     <title>Dashboard</title>
 
-    <link rel="stylesheet" href="dashboard.css">
+    <link
+        rel="stylesheet"
+        href="dashboard.css"
+    >
 
 </head>
 
@@ -32,13 +35,17 @@ require_once 'cek_session.php';
 
         <h1>
             Selamat datang,
-            <?php echo htmlspecialchars($_SESSION['username']); ?>
+            <?php
+            echo htmlspecialchars($username);
+            ?>
         </h1>
 
         <p>
             Role kamu:
             <strong>
-                <?php echo htmlspecialchars($_SESSION['role']); ?>
+                <?php
+                echo htmlspecialchars($role);
+                ?>
             </strong>
         </p>
 
