@@ -8,18 +8,12 @@ require_once 'cek_session.php';
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Dashboard</title>
 
     <link rel="stylesheet" href="dashboard.css">
-
 </head>
 
 <body>
@@ -43,5 +37,4 @@ require_once 'cek_session.php';
     </div>
 
 </body>
-
 </html>

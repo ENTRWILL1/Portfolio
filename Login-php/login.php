@@ -2,12 +2,14 @@
 
 session_start();
 
+$error = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    // Login Admin
+    // ADMIN
     if ($username === 'admin' && $password === '111') {
 
         $_SESSION['is_login'] = true;
@@ -16,9 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         header('Location: dashboard.php');
         exit;
+    }
 
-    // Login User
-    } elseif ($username === 'user' && $password === '222') {
+    // USER
+    elseif ($username === 'user' && $password === '222') {
 
         $_SESSION['is_login'] = true;
         $_SESSION['username'] = 'user';
@@ -26,10 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         header('Location: dashboard.php');
         exit;
+    }
 
-    } else {
+    // SALAH
+    else {
 
-        $error = 'Username atau password salah';
+        $error = 'Username atau password salah.';
     }
 }
 
@@ -39,10 +44,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Login</title>
+
     <link rel="stylesheet" href="login.css">
+
 </head>
 
 <body>
@@ -51,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <h2>Login</h2>
 
-        <?php if (isset($error)): ?>
+        <?php if ($error !== ''): ?>
 
             <p class="error-message">
                 <?php echo htmlspecialchars($error); ?>

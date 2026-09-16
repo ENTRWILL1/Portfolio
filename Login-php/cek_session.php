@@ -1,6 +1,5 @@
 <?php
 
-// Pastikan session sudah aktif
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -14,7 +13,7 @@ if (
     exit;
 }
 
-// Sudah login, tetapi bukan admin
+// Bukan admin
 if (
     !isset($_SESSION['role']) ||
     $_SESSION['role'] !== 'admin'
