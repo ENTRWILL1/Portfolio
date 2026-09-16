@@ -9,29 +9,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    // ADMIN
     if ($username === 'admin' && $password === '111') {
 
         $_SESSION['is_login'] = true;
         $_SESSION['username'] = 'admin';
         $_SESSION['role'] = 'admin';
 
+        // Paksa session disimpan
+        session_write_close();
+
         header('Location: dashboard.php');
         exit;
     }
 
-    // USER
     elseif ($username === 'user' && $password === '222') {
 
         $_SESSION['is_login'] = true;
         $_SESSION['username'] = 'user';
         $_SESSION['role'] = 'user';
 
+        session_write_close();
+
         header('Location: dashboard.php');
         exit;
     }
 
-    // SALAH
     else {
 
         $error = 'Username atau password salah.';
@@ -44,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="id">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -55,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Login</title>
 
     <link rel="stylesheet" href="login.css">
-
 </head>
 
 <body>
