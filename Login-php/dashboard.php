@@ -8,17 +8,27 @@ require_once 'cek_session.php';
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Dashboard</title>
 
     <link rel="stylesheet" href="dashboard.css">
+
 </head>
 
 <body>
 
     <div class="dashboard-container">
+
+        <div class="dashboard-icon">
+            🌿
+        </div>
 
         <h1>
             Selamat datang,
@@ -27,14 +37,27 @@ require_once 'cek_session.php';
 
         <p>
             Role kamu:
-            <?php echo htmlspecialchars($_SESSION['role']); ?>
+            <strong>
+                <?php echo htmlspecialchars($_SESSION['role']); ?>
+            </strong>
         </p>
 
-        <a href="logout.php">
-            Logout
-        </a>
+        <div class="dashboard-actions">
+
+            <!-- Kembali ke Portfolio -->
+            <a href="index.html" class="portfolio-button">
+                🌿 Kembali ke Portfolio
+            </a>
+
+            <!-- Logout -->
+            <a href="logout.php" class="logout-button">
+                Logout
+            </a>
+
+        </div>
 
     </div>
 
 </body>
+
 </html>

@@ -466,3 +466,145 @@ body::after {
         transition-duration: 0.01ms !important;
     }
 }
+
+
+/* =========================================================
+   🌿 DASHBOARD ACTIONS
+========================================================= */
+
+.dashboard-actions {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    flex-wrap: wrap;
+
+    margin-top: 2rem;
+}
+
+
+/* =========================================================
+   PORTFOLIO BUTTON
+========================================================= */
+
+.portfolio-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        0.95rem
+        1.5rem;
+
+    border-radius: 15px;
+
+    background:
+        var(--gradient-hero);
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 0.95rem;
+
+    font-weight: 800;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 10px 25px -8px
+        var(--accent-glow);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.portfolio-button:hover {
+    transform:
+        translateY(-4px)
+        scale(1.03);
+
+    box-shadow:
+        0 18px 35px -8px
+        var(--accent-glow);
+}
+
+
+/* =========================================================
+   LOGOUT BUTTON
+========================================================= */
+
+.logout-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        0.95rem
+        1.5rem;
+
+    border-radius: 15px;
+
+    background:
+        var(--bg-card);
+
+    color:
+        var(--text-primary);
+
+    border:
+        1px solid
+        var(--border);
+
+    text-decoration: none;
+
+    font-size: 0.95rem;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease;
+}
+
+
+.logout-button:hover {
+    transform: translateY(-4px);
+
+    border-color:
+        var(--accent);
+
+    background:
+        var(--bg-card-hover);
+}
+
+
+/* =========================================================
+   📱 MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .dashboard-actions {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .portfolio-button,
+    .logout-button {
+        width: 100%;
+    }
+}
