@@ -8,6 +8,7 @@ $pesan = "Akses ditolak. Hanya admin yang dapat mengakses halaman ini.";
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -18,6 +19,7 @@ $pesan = "Akses ditolak. Hanya admin yang dapat mengakses halaman ini.";
     <title>Akses Ditolak</title>
 
     <link rel="stylesheet" href="akses-ditolak.css">
+
 </head>
 
 <body>

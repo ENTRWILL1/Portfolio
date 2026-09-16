@@ -8,6 +8,7 @@ require_once 'cek_session.php';
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -18,23 +19,28 @@ require_once 'cek_session.php';
     <title>Dashboard</title>
 
     <link rel="stylesheet" href="dashboard.css">
+
 </head>
 
 <body>
 
-    <h1>
-        Selamat datang,
-        <?php echo htmlspecialchars($_SESSION['username']); ?>
-    </h1>
+    <div class="dashboard-container">
 
-    <p>
-        Role kamu:
-        <?php echo htmlspecialchars($_SESSION['role']); ?>
-    </p>
+        <h1>
+            Selamat datang,
+            <?php echo htmlspecialchars($_SESSION['username']); ?>
+        </h1>
 
-    <a href="logout.php">
-        Logout
-    </a>
+        <p>
+            Role kamu:
+            <?php echo htmlspecialchars($_SESSION['role']); ?>
+        </p>
+
+        <a href="logout.php">
+            Logout
+        </a>
+
+    </div>
 
 </body>
 

@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
+    // Login Admin
     if ($username === 'admin' && $password === '111') {
 
         $_SESSION['is_login'] = true;
@@ -16,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: dashboard.php');
         exit;
 
+    // Login User
     } elseif ($username === 'user' && $password === '222') {
 
         $_SESSION['is_login'] = true;
@@ -28,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
 
         $error = 'Username atau password salah';
-
     }
 }
 
@@ -46,35 +47,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-    <h2>Login</h2>
+    <div class="login-container">
 
-    <?php if (isset($error)): ?>
-        <p class="error-message">
-            <?php echo htmlspecialchars($error); ?>
-        </p>
-    <?php endif; ?>
+        <h2>Login</h2>
 
-    <form method="POST" action="login.php">
+        <?php if (isset($error)): ?>
 
-        <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            autocomplete="username"
-            required
-        >
+            <p class="error-message">
+                <?php echo htmlspecialchars($error); ?>
+            </p>
 
-        <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            autocomplete="current-password"
-            required
-        >
+        <?php endif; ?>
 
-        <button type="submit">Login</button>
+        <form method="POST" action="login.php">
 
-    </form>
+            <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                autocomplete="username"
+                required
+            >
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+    </div>
 
 </body>
 
