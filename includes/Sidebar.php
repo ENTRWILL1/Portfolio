@@ -1,3 +1,27 @@
+<?php
+
+/*
+| Menu sidebar dashboard. Semua halaman fitur berada di folder dashboard/,
+| jadi link antar-halaman cukup nama file. Untuk menambah menu, tambah
+| satu baris di array ini.
+*/
+
+$basePath = $basePath ?? '../';
+$current  = basename($_SERVER['SCRIPT_NAME']);
+
+$menu = [
+    'dashboard.php'  => ['🏠', 'Dashboard'],
+    'profil.php'     => ['👤', 'Profil'],
+    'projects.php'   => ['🚀', 'Projects'],
+    'skills.php'     => ['⚡', 'Skills'],
+    'learning.php'   => ['📚', 'Learning Progress'],
+    'experience.php' => ['💻', 'Experience'],
+    'education.php'  => ['🎓', 'Education'],
+    'video.php'      => ['🎬', 'Video'],
+    'gallery.php'    => ['🖼️', 'Gallery'],
+];
+
+?>
 <!-- ================= SIDEBAR DASHBOARD ================= -->
 
 <aside class="dashboard-sidebar">
@@ -10,63 +34,31 @@
         </div>
     </div>
 
-    <nav class="sidebar-menu">
+    <nav class="sidebar-menu" aria-label="Menu dashboard">
 
-        <a href="dashboard.php" class="sidebar-link">
-            <span>🏠</span>
-            <span>Dashboard</span>
-        </a>
+        <?php foreach ($menu as $file => [$icon, $label]): ?>
 
-        <a href="profil.php" class="sidebar-link">
-            <span>👤</span>
-            <span>Profil</span>
-        </a>
+            <a
+                href="<?= $file ?>"
+                class="sidebar-link<?= $current === $file ? ' active' : '' ?>"
+                <?= $current === $file ? 'aria-current="page"' : '' ?>
+            >
+                <span><?= $icon ?></span>
+                <span><?= $label ?></span>
+            </a>
 
-        <a href="projects.php" class="sidebar-link">
-            <span>🚀</span>
-            <span>Projects</span>
-        </a>
-
-        <a href="skills.php" class="sidebar-link">
-            <span>⚡</span>
-            <span>Skills</span>
-        </a>
-
-        <a href="learning.php" class="sidebar-link">
-            <span>📚</span>
-            <span>Learning Progress</span>
-        </a>
-
-        <a href="experience.php" class="sidebar-link">
-            <span>💻</span>
-            <span>Experience</span>
-        </a>
-
-        <a href="education.php" class="sidebar-link">
-            <span>🎓</span>
-            <span>Education</span>
-        </a>
-
-        <a href="video.php" class="sidebar-link">
-            <span>🎬</span>
-            <span>Video</span>
-        </a>
-
-        <a href="gallery.php" class="sidebar-link">
-            <span>🖼️</span>
-            <span>Gallery</span>
-        </a>
+        <?php endforeach; ?>
 
     </nav>
 
     <div class="sidebar-bottom">
 
-        <a href="../index.php" class="sidebar-link">
+        <a href="<?= $basePath ?>index.php" class="sidebar-link">
             <span>🌐</span>
             <span>Lihat Portfolio</span>
         </a>
 
-        <a href="../Login-php/logout.php" class="sidebar-link logout-link">
+        <a href="<?= $basePath ?>Login-php/logout.php" class="sidebar-link logout-link">
             <span>↪️</span>
             <span>Logout</span>
         </a>

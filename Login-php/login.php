@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         header(
-            'Location: dashboard.php'
+            'Location: ../dashboard/dashboard.php'
         );
 
         exit;
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         header(
-            'Location: dashboard.php'
+            'Location: ../dashboard/dashboard.php'
         );
 
         exit;

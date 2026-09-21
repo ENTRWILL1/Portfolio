@@ -570,3 +570,629 @@ body.dark {
     }
 
 }
+
+/* =========================================================
+   DASAR HALAMAN DASHBOARD
+   (reset + font, karena halaman dashboard tidak memuat Desain.css)
+========================================================= */
+
+.dashboard-page {
+    margin: 0;
+    font-family:
+        'Plus Jakarta Sans',
+        system-ui,
+        -apple-system,
+        sans-serif;
+    line-height: 1.5;
+}
+
+.dashboard-page *,
+.dashboard-page *::before,
+.dashboard-page *::after {
+    box-sizing: border-box;
+}
+
+.dashboard-page :focus-visible {
+    outline: 3px solid var(--dashboard-accent);
+    outline-offset: 2px;
+}
+
+:root {
+    --dashboard-danger: #b91c1c;
+    --dashboard-danger-soft: rgba(220, 38, 38, 0.10);
+    --dashboard-amber-text: #b45309;
+    --dashboard-field: rgba(255, 255, 255, 0.6);
+}
+
+body.dark {
+    --dashboard-danger: #fca5a5;
+    --dashboard-danger-soft: rgba(248, 113, 113, 0.14);
+    --dashboard-amber-text: #fbbf24;
+    --dashboard-field: rgba(0, 0, 0, 0.22);
+}
+
+
+/* =========================================================
+   KARTU ADMIN (gaya dasar bersama)
+========================================================= */
+
+.admin-timeline-card,
+.admin-gallery-card,
+.admin-project-card,
+.admin-skill-card,
+.admin-profile-card,
+.admin-form-card,
+.admin-video-card {
+    background: var(--dashboard-card);
+    border: 1px solid var(--dashboard-border);
+    border-radius: 22px;
+    box-shadow: var(--dashboard-shadow);
+}
+
+.admin-timeline-icon,
+.admin-project-icon,
+.admin-skill-icon {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(16, 185, 129, 0.15),
+            rgba(217, 119, 6, 0.12)
+        );
+    border: 1px solid var(--dashboard-border);
+    font-size: 1.4rem;
+}
+
+
+/* =========================================================
+   TOOLBAR & TOMBOL
+========================================================= */
+
+.admin-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-toolbar h2 {
+    margin: 0 0 0.3rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.admin-toolbar p {
+    margin: 0;
+    color: var(--dashboard-text-soft);
+    font-size: 0.9rem;
+}
+
+.admin-save-btn,
+.admin-edit-btn,
+.admin-delete-btn,
+.admin-preview-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.1rem;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.admin-save-btn:hover,
+.admin-edit-btn:hover,
+.admin-delete-btn:hover,
+.admin-preview-btn:hover {
+    transform: translateY(-2px);
+}
+
+.admin-save-btn {
+    background: linear-gradient(135deg, #047857, #059669);
+    color: #ffffff;
+    box-shadow: 0 8px 20px -8px rgba(16, 185, 129, 0.55);
+}
+
+.admin-edit-btn {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--dashboard-accent-dark);
+}
+
+.admin-delete-btn {
+    background: var(--dashboard-danger-soft);
+    color: var(--dashboard-danger);
+}
+
+.admin-preview-btn {
+    background: transparent;
+    border-color: var(--dashboard-border);
+    color: var(--dashboard-text);
+}
+
+.admin-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+
+/* =========================================================
+   TIMELINE (Education & Experience)
+========================================================= */
+
+.admin-timeline-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.admin-timeline-card {
+    display: flex;
+    gap: 1.2rem;
+    padding: 1.4rem;
+}
+
+.admin-timeline-content {
+    min-width: 0;
+}
+
+.admin-timeline-year {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(217, 119, 6, 0.12);
+    color: var(--dashboard-amber-text);
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.admin-timeline-content h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.admin-timeline-content h3 {
+    margin: 0 0 0.6rem;
+    color: var(--dashboard-accent-dark);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.admin-timeline-content p {
+    margin: 0;
+    color: var(--dashboard-text-soft);
+    font-size: 0.9rem;
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.admin-gallery-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+}
+
+.admin-gallery-card {
+    overflow: hidden;
+}
+
+.admin-gallery-image {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.admin-gallery-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-gallery-info {
+    padding: 1rem 1.1rem 1.2rem;
+}
+
+.admin-gallery-info span {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: var(--dashboard-text-soft);
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.admin-gallery-info h2 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+.admin-project-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+}
+
+.admin-project-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.4rem;
+}
+
+.admin-project-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.admin-project-number {
+    color: var(--dashboard-text-soft);
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.admin-project-card h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.admin-project-card p {
+    margin: 0 0 1rem;
+    color: var(--dashboard-text-soft);
+    font-size: 0.9rem;
+    line-height: 1.65;
+}
+
+.admin-tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.admin-tech-list span {
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--dashboard-accent-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.admin-project-card .admin-card-actions {
+    margin-top: auto;
+    padding-top: 1.1rem;
+}
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+.admin-skill-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
+}
+
+.admin-skill-card {
+    padding: 1.4rem;
+}
+
+.admin-skill-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-skill-top h2 {
+    margin: 0 0 0.3rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.admin-skill-level {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--dashboard-accent-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FORM (Profil, Learning, Video)
+========================================================= */
+
+.admin-form-card {
+    margin-bottom: 1.5rem;
+    padding: 1.8rem;
+    border-radius: 24px;
+}
+
+.admin-form-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-form-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--dashboard-border);
+    border-radius: 14px;
+    background: var(--dashboard-field);
+    color: var(--dashboard-text);
+    font: inherit;
+    font-size: 0.92rem;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--dashboard-accent);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+}
+
+
+/* =========================================================
+   PROFIL
+========================================================= */
+
+.admin-profile-card {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin-bottom: 1.5rem;
+    padding: 1.8rem;
+    border-radius: 24px;
+}
+
+.admin-profile-image {
+    flex-shrink: 0;
+    width: 110px;
+    height: 110px;
+    overflow: hidden;
+    border: 3px solid var(--dashboard-accent);
+    border-radius: 50%;
+}
+
+.admin-profile-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-profile-info {
+    min-width: 0;
+}
+
+.profile-status {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    color: var(--dashboard-accent-dark);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.admin-profile-info h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.profile-username {
+    margin: 0.2rem 0 0.8rem;
+    color: var(--dashboard-text-soft);
+    font-size: 0.9rem;
+}
+
+.profile-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.profile-badges span {
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--dashboard-border);
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.12);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   LEARNING PROGRESS
+========================================================= */
+
+.admin-progress-value {
+    color: var(--dashboard-accent-dark);
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.admin-progress-preview {
+    margin-bottom: 1.8rem;
+    padding: 1.2rem;
+    border: 1px solid var(--dashboard-border);
+    border-radius: 18px;
+    background: var(--dashboard-field);
+}
+
+.admin-progress-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.9rem;
+}
+
+.admin-progress-track {
+    height: 12px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.admin-progress-fill {
+    height: 100%;
+    border-radius: inherit;
+    background:
+        linear-gradient(
+            90deg,
+            var(--dashboard-accent),
+            var(--dashboard-amber)
+        );
+}
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.admin-video-card {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.3fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1.4rem;
+    border-radius: 24px;
+}
+
+.admin-video-preview video {
+    display: block;
+    width: 100%;
+    border-radius: 16px;
+    background: #000000;
+}
+
+.admin-video-info h2 {
+    margin: 0.2rem 0 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.admin-video-info p {
+    margin: 0;
+    color: var(--dashboard-text-soft);
+    font-size: 0.9rem;
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   RESPONSIVE & REDUCED MOTION (komponen admin)
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .admin-profile-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-badges {
+        justify-content: center;
+    }
+
+    .admin-video-card {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-timeline-card {
+        flex-direction: column;
+    }
+
+    .admin-toolbar .admin-save-btn {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .dashboard-page *,
+    .dashboard-page *::before,
+    .dashboard-page *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}

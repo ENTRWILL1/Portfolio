@@ -8,13 +8,23 @@
 
 function authSecret(): string
 {
-    // Untuk Vercel, buat Environment Variable:
-    // AUTH_SECRET
-    //
-    // Untuk sementara ada fallback agar tetap bisa dites di Laragon.
-    return $_ENV['AUTH_SECRET']
-        ?? getenv('AUTH_SECRET')
-        ?: 'willy-portfolio-auth-secret-2026';
+    // Di server (Vercel/Docker), WAJIB buat Environment Variable:
+    // AUTH_SECRET  -> isi dengan teks acak yang panjang (minimal 32 karakter).
+    $secret = $_ENV['AUTH_SECRET'] ?? getenv('AUTH_SECRET') ?: '';
+
+    if ($secret !== '') {
+        return $secret;
+    }
+
+    // Tanpa AUTH_SECRET, hanya boleh untuk tes lokal (Laragon).
+    $remote = $_SERVER['REMOTE_ADDR'] ?? '';
+
+    if ($remote === '127.0.0.1' || $remote === '::1') {
+        return 'kunci-khusus-tes-lokal-laragon';
+    }
+
+    http_response_code(500);
+    exit('AUTH_SECRET belum diatur di server.');
 }
 
 

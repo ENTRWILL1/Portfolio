@@ -4,7 +4,7 @@
    🔐 CEK LOGIN ADMIN
 ========================================================= */
 
-require_once "../includes/auth.php";
+require_once __DIR__ . "/../includes/guard.php";
 
 
 /* =========================================================
@@ -18,14 +18,14 @@ $isDashboard = true;
    HEADER
 ========================================================= */
 
-require_once "../includes/Header.php";
+require_once __DIR__ . "/../includes/Header.php";
 
 
 /* =========================================================
    SIDEBAR
 ========================================================= */
 
-require_once "../includes/Sidebar.php";
+require_once __DIR__ . "/../includes/Sidebar.php";
 
 ?>
 
@@ -209,6 +209,6 @@ require_once "../includes/Sidebar.php";
    FOOTER
 ========================================================= */
 
-require_once "../includes/Footer.php";
+require_once __DIR__ . "/../includes/Footer.php";
 
 ?>

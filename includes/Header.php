@@ -1,3 +1,25 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| HEADER
+|--------------------------------------------------------------------------
+| Pintu masuk header untuk dua jenis halaman:
+|   - Portfolio  : tidak perlu set apa-apa ($basePath = "" di folder utama)
+|   - Dashboard  : set $isDashboard = true (halaman di folder dashboard/)
+|
+| $basePath = jalur dari halaman ke folder utama ("" atau "../").
+*/
+
+$isDashboard = $isDashboard ?? false;
+$basePath    = $basePath    ?? ($isDashboard ? '../' : '');
+
+if ($isDashboard) {
+    require __DIR__ . '/dashboard-header.php';
+    return;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -43,14 +65,14 @@
     <!-- Favicon -->
     <link
         rel="icon"
-        href="pngegg.png"
+        href="<?= $basePath ?>pngegg.png"
         type="image/png"
     >
 
     <!-- CSS -->
     <link
         rel="stylesheet"
-        href="Desain.css"
+        href="<?= $basePath ?>Desain.css"
     >
 
     <!-- Google Fonts -->
@@ -181,7 +203,7 @@
             <div class="nav-actions">
 
                 <a
-                    href="Login-php/login.php"
+                    href="<?= $basePath ?>Login-php/login.php"
                     class="login-btn"
                     aria-label="Login"
                     title="Login"
