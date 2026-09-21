@@ -1,25 +1,3 @@
-<?php
-
-/*
-|--------------------------------------------------------------------------
-| HEADER
-|--------------------------------------------------------------------------
-| Pintu masuk header untuk dua jenis halaman:
-|   - Portfolio  : tidak perlu set apa-apa ($basePath = "" di folder utama)
-|   - Dashboard  : set $isDashboard = true (halaman di folder dashboard/)
-|
-| $basePath = jalur dari halaman ke folder utama ("" atau "../").
-*/
-
-$isDashboard = $isDashboard ?? false;
-$basePath    = $basePath    ?? ($isDashboard ? '../' : '');
-
-if ($isDashboard) {
-    require __DIR__ . '/dashboard-header.php';
-    return;
-}
-
-?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -65,15 +43,26 @@ if ($isDashboard) {
     <!-- Favicon -->
     <link
         rel="icon"
-        href="<?= $basePath ?>pngegg.png"
+        href="pngegg.png"
         type="image/png"
     >
 
-    <!-- CSS -->
-    <link
-        rel="stylesheet"
-        href="<?= $basePath ?>Desain.css"
-    >
+    <!-- ================= CSS ================= -->
+
+<?php if (isset($isDashboard) && $isDashboard === true): ?>
+
+    <!-- CSS Portfolio -->
+    <link rel="stylesheet" href="../Desain.css">
+
+    <!-- CSS Dashboard -->
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+
+<?php else: ?>
+
+    <!-- CSS Portfolio -->
+    <link rel="stylesheet" href="Desain.css">
+
+<?php endif; ?>
 
     <!-- Google Fonts -->
     <link
@@ -203,7 +192,7 @@ if ($isDashboard) {
             <div class="nav-actions">
 
                 <a
-                    href="<?= $basePath ?>Login-php/login.php"
+                    href="Login-php/login.php"
                     class="login-btn"
                     aria-label="Login"
                     title="Login"
