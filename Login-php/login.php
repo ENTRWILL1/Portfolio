@@ -24,8 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'admin'
         );
 
+        // Admin -> dashboard
         header(
-            'Location: ../dashboard/dashboard.php'
+            'Location: ../Dashboard/dashboard.php'
         );
 
         exit;
@@ -43,8 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'user'
         );
 
+        // User biasa -> akses ditolak
         header(
-            'Location: ../dashboard/dashboard.php'
+            'Location: akses_ditolak.php'
         );
 
         exit;

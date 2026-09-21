@@ -19,7 +19,7 @@ function authSecret(): string
     // Tanpa AUTH_SECRET, hanya boleh untuk tes lokal (Laragon).
     $remote = $_SERVER['REMOTE_ADDR'] ?? '';
 
-    if ($remote === '127.0.0.1' || $remote === '::1') {
+    if (in_array($remote, ['127.0.0.1', '::1', '::ffff:127.0.0.1'], true)) {
         return 'kunci-khusus-tes-lokal-laragon';
     }
 

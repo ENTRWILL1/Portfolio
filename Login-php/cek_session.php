@@ -7,9 +7,9 @@ require_once __DIR__ . '/auth.php';
 | Path dasar
 |--------------------------------------------------------------------------
 | Halaman yang memanggil file ini boleh mengisi $basePath lebih dulu.
-| Default "../" cocok untuk Login-php/ dan dashboard/ (sama-sama satu
+| Default "../" cocok untuk Login-php/ dan Dashboard/ (sama-sama satu
 | tingkat di bawah folder utama). Ini memastikan redirect tidak nyasar
-| ke dashboard/login.php (404).
+| ke Dashboard/login.php (404).
 */
 
 $basePath  = $basePath ?? '../';

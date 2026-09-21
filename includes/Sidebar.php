@@ -1,7 +1,7 @@
 <?php
 
 /*
-| Menu sidebar dashboard. Semua halaman fitur berada di folder dashboard/,
+| Menu sidebar dashboard. Semua halaman fitur berada di folder Dashboard/,
 | jadi link antar-halaman cukup nama file. Untuk menambah menu, tambah
 | satu baris di array ini.
 */
