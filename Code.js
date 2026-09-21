@@ -98,6 +98,12 @@ const portfolio = {
     }
 };
 
+// Data profil dari database (diisi oleh includes/Footer.php).
+// Kalau tidak ada / database belum siap, data di atas yang dipakai.
+if (window.portfolioProfile) {
+    Object.assign(portfolio, window.portfolioProfile);
+}
+
 
 function setText(id, value) {
     const element = document.getElementById(id);

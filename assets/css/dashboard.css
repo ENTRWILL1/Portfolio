@@ -1227,3 +1227,50 @@ body.dark {
 .admin-skill-card .admin-card-actions {
     margin-top: 0;
 }
+
+
+/* =========================================================
+   PESAN STATUS & PETUNJUK FORM
+========================================================= */
+
+.admin-alert {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--dashboard-border);
+    border-radius: 16px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.admin-alert a {
+    color: inherit;
+    font-weight: 700;
+}
+
+.admin-alert ul {
+    margin: 0.4rem 0 0 1.2rem;
+    padding: 0;
+}
+
+.admin-alert-success {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: var(--dashboard-accent-dark);
+}
+
+.admin-alert-warning {
+    background: rgba(217, 119, 6, 0.12);
+    border-color: rgba(217, 119, 6, 0.3);
+    color: var(--dashboard-amber-text);
+}
+
+.admin-alert-error {
+    background: var(--dashboard-danger-soft);
+    border-color: rgba(220, 38, 38, 0.3);
+    color: var(--dashboard-danger);
+}
+
+.form-hint {
+    color: var(--dashboard-text-soft);
+    font-size: 0.78rem;
+}

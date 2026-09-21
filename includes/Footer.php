@@ -29,6 +29,17 @@ if ($isDashboard) {
         <span>© 2026 Portfolio</span>
     </footer>
 
+<?php if (!empty($portfolioProfile) && is_array($portfolioProfile)): ?>
+    <!-- Data profil dari database (menimpa data bawaan di Code.js) -->
+    <script>
+        window.portfolioProfile = <?= json_encode(
+            $portfolioProfile,
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+            | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+        ) ?>;
+    </script>
+<?php endif; ?>
+
     <!-- JavaScript -->
     <script src="<?= $basePath ?>Code.js" defer></script>
 </body>

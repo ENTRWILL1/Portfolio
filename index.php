@@ -2,6 +2,10 @@
 
 $basePath = "";
 
+// Profil dari database (null = pakai data bawaan di Code.js)
+require_once __DIR__ . "/includes/profile.php";
+$portfolioProfile = getProfileForSite();
+
 require_once "includes/Header.php";
 
 ?>
