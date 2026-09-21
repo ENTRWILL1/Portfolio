@@ -11,14 +11,14 @@ $current  = basename($_SERVER['SCRIPT_NAME']);
 
 $menu = [
     'dashboard.php'  => ['🏠', 'Dashboard'],
-    'profil.php'     => ['👤', 'Profil'],
-    'projects.php'   => ['🚀', 'Projects'],
+    'profil.php'    => ['👤', 'Profil'],
     'skills.php'     => ['⚡', 'Skills'],
-    'learning.php'   => ['📚', 'Learning Progress'],
-    'experience.php' => ['💻', 'Experience'],
-    'education.php'  => ['🎓', 'Education'],
-    'video.php'      => ['🎬', 'Video'],
-    'gallery.php'    => ['🖼️', 'Gallery'],
+    'education.php'   => ['🎓', 'Education'],
+    'experience.php'     => ['💻', 'Experience'],
+    'projects.php'   => ['🚀', 'Projects'],
+    'gallery.php' => ['🖼️', 'Gallery'],
+    'video.php'  => ['🎬', 'Video'],
+    'learning.php'      => ['📚', 'Learning Progress'],
 ];
 
 ?>
