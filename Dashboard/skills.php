@@ -4,7 +4,7 @@
    🔐 CEK LOGIN ADMIN
 ========================================================= */
 
-require_once __DIR__ . "/../includes/guard.php";
+require_once "../includes/auth.php";
 
 
 /* =========================================================
@@ -15,24 +15,17 @@ $isDashboard = true;
 
 
 /* =========================================================
-   HEADER & SIDEBAR
+   HEADER
 ========================================================= */
 
-require_once __DIR__ . "/../includes/Header.php";
-
-require_once __DIR__ . "/../includes/Sidebar.php";
+require_once "../includes/Header.php";
 
 
 /* =========================================================
-   DATA SKILLS (sama dengan yang tampil di portfolio)
+   SIDEBAR
 ========================================================= */
 
-$skills = [
-    ['icon' => '🌐', 'nama' => 'HTML',       'level' => 'Beginner'],
-    ['icon' => '🎨', 'nama' => 'CSS',        'level' => 'Beginner'],
-    ['icon' => '⚡', 'nama' => 'JavaScript', 'level' => 'Beginner'],
-    ['icon' => '🐍', 'nama' => 'Python',     'level' => 'Beginner'],
-];
+require_once "../includes/Sidebar.php";
 
 ?>
 
@@ -56,13 +49,18 @@ $skills = [
             </h1>
 
             <p>
-                Atur daftar skills dan kemampuan yang ditampilkan pada portfolio kamu.
+                Atur kemampuan dan tingkat penguasaan yang
+                ditampilkan pada portfolio.
             </p>
 
         </div>
 
     </div>
 
+
+    <!-- =====================================================
+         SKILLS TOOLBAR
+    ====================================================== -->
 
     <div class="admin-toolbar">
 
@@ -73,7 +71,7 @@ $skills = [
             </h2>
 
             <p>
-                Skills yang saat ini ada di portfolio.
+                Skills yang saat ini ditampilkan pada portfolio.
             </p>
 
         </div>
@@ -88,53 +86,192 @@ $skills = [
     </div>
 
 
+    <!-- =====================================================
+         SKILLS GRID
+    ====================================================== -->
+
     <div class="admin-skill-grid">
 
-        <?php foreach ($skills as $skill): ?>
 
-            <article class="admin-skill-card">
+        <!-- HTML -->
 
-                <div class="admin-skill-top">
+        <article class="admin-skill-card">
 
-                    <div class="admin-skill-icon">
-                        <?= $skill['icon'] ?>
-                    </div>
+            <div class="admin-skill-icon">
+                🌐
+            </div>
 
-                    <div>
+            <div class="admin-skill-info">
 
-                        <h2>
-                            <?= htmlspecialchars($skill['nama']) ?>
-                        </h2>
+                <div>
 
-                        <span class="admin-skill-level">
-                            <?= htmlspecialchars($skill['level']) ?>
-                        </span>
+                    <h2>
+                        HTML
+                    </h2>
 
-                    </div>
-
-                </div>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
+                    <span>
+                        Beginner
+                    </span>
 
                 </div>
 
-            </article>
+            </div>
 
-        <?php endforeach; ?>
+            <div class="admin-card-actions">
+
+                <button
+                    type="button"
+                    class="admin-edit-btn"
+                >
+                    ✏️ Edit
+                </button>
+
+                <button
+                    type="button"
+                    class="admin-delete-btn"
+                >
+                    🗑️ Hapus
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- CSS -->
+
+        <article class="admin-skill-card">
+
+            <div class="admin-skill-icon">
+                🎨
+            </div>
+
+            <div class="admin-skill-info">
+
+                <div>
+
+                    <h2>
+                        CSS
+                    </h2>
+
+                    <span>
+                        Beginner
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="admin-card-actions">
+
+                <button
+                    type="button"
+                    class="admin-edit-btn"
+                >
+                    ✏️ Edit
+                </button>
+
+                <button
+                    type="button"
+                    class="admin-delete-btn"
+                >
+                    🗑️ Hapus
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- JAVASCRIPT -->
+
+        <article class="admin-skill-card">
+
+            <div class="admin-skill-icon">
+                ⚡
+            </div>
+
+            <div class="admin-skill-info">
+
+                <div>
+
+                    <h2>
+                        JavaScript
+                    </h2>
+
+                    <span>
+                        Beginner
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="admin-card-actions">
+
+                <button
+                    type="button"
+                    class="admin-edit-btn"
+                >
+                    ✏️ Edit
+                </button>
+
+                <button
+                    type="button"
+                    class="admin-delete-btn"
+                >
+                    🗑️ Hapus
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- PYTHON -->
+
+        <article class="admin-skill-card">
+
+            <div class="admin-skill-icon">
+                🐍
+            </div>
+
+            <div class="admin-skill-info">
+
+                <div>
+
+                    <h2>
+                        Python
+                    </h2>
+
+                    <span>
+                        Beginner
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="admin-card-actions">
+
+                <button
+                    type="button"
+                    class="admin-edit-btn"
+                >
+                    ✏️ Edit
+                </button>
+
+                <button
+                    type="button"
+                    class="admin-delete-btn"
+                >
+                    🗑️ Hapus
+                </button>
+
+            </div>
+
+        </article>
+
 
     </div>
 
@@ -147,6 +284,6 @@ $skills = [
    FOOTER
 ========================================================= */
 
-require_once __DIR__ . "/../includes/Footer.php";
+require_once "../includes/Footer.php";
 
 ?>
