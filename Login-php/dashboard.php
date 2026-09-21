@@ -1,74 +1,27 @@
 <?php
 
-require_once 'cek_session.php';
+$basePath   = '../';
+$pageTitle  = 'Dashboard';
+$activePage = 'dashboard';
+
+// Cek login harus paling atas, sebelum ada output HTML apa pun.
+require_once __DIR__ . '/cek_session.php';
+require_once __DIR__ . '/../includes/dashboard-header.php';
 
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
+<h1 class="dash-page-title">
+    Selamat datang, <?= htmlspecialchars($username) ?>
+</h1>
 
-<head>
+<p class="dash-lead">
+    Pilih bagian portfolio yang ingin dikelola dari menu di samping.
+</p>
 
-    <meta charset="UTF-8">
+<div class="dash-card">
+    <p>
+        Role kamu: <strong><?= htmlspecialchars($role) ?></strong>
+    </p>
+</div>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Dashboard</title>
-
-    <link
-        rel="stylesheet"
-        href="dashboard.css"
-    >
-
-</head>
-
-<body>
-
-    <div class="dashboard-container">
-
-        <div class="dashboard-icon">
-            🌿
-        </div>
-
-        <h1>
-            Selamat datang,
-            <?php
-            echo htmlspecialchars($username);
-            ?>
-        </h1>
-
-        <p>
-            Role kamu:
-            <strong>
-                <?php
-                echo htmlspecialchars($role);
-                ?>
-            </strong>
-        </p>
-
-        <div class="dashboard-actions">
-
-            <a
-                href="../index.html"
-                class="portfolio-button"
-            >
-                🌿 Kembali ke Portfolio
-            </a>
-
-            <a
-                href="logout.php"
-                class="logout-button"
-            >
-                Logout
-            </a>
-
-        </div>
-
-    </div>
-
-</body>
-
-</html>
+<?php require_once __DIR__ . '/../includes/dashboard-footer.php'; ?>
