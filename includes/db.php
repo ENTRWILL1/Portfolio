@@ -50,7 +50,7 @@ function dbConnect(bool $withDatabase = true): PDO
     | Laragon lokal tidak butuh ini, jadi hanya diaktifkan kalau DB_HOST diisi
     | (tandanya sedang memakai database online, bukan default localhost).
     */
-    if (getenv('DB_HOST') ?: '') {
+    if ((getenv('DB_HOST') ?: '') && defined('PDO::MYSQL_ATTR_SSL_CA')) {
         $opsi[PDO::MYSQL_ATTR_SSL_CA] = null;
         $opsi[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
     }

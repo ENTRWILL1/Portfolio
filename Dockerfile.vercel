@@ -2,6 +2,13 @@ FROM dunglas/frankenphp:php8.3
 
 WORKDIR /app
 
+# Ekstensi pdo_mysql tidak ikut di image dasar - wajib diinstal manual,
+# supaya bisa konek ke database (Aiven) lewat PDO + SSL.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends default-libmysqlclient-dev \
+    && docker-php-ext-install pdo_mysql \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY . /app
 
 CMD ["frankenphp", "php-server", "--listen", ":80", "root", "/app"]
