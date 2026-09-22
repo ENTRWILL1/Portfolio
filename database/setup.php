@@ -11,15 +11,23 @@
 | (tanda sedang berjalan di server).
 */
 
+// Kalau ada includes/local-env.php, pakai nilainya (untuk setup database
+// online seperti Aiven dari Laragon). Lihat includes/local-env.php.example.
+if (is_file(__DIR__ . '/../includes/local-env.php')) {
+    require_once __DIR__ . '/../includes/local-env.php';
+}
+
 require_once __DIR__ . '/../includes/profile.php';
 
 header('Content-Type: text/html; charset=UTF-8');
 
-$remote   = $_SERVER['REMOTE_ADDR'] ?? '';
-$isLocal  = in_array($remote, ['127.0.0.1', '::1', '::ffff:127.0.0.1'], true);
-$onServer = (getenv('AUTH_SECRET') ?: ($_ENV['AUTH_SECRET'] ?? '')) !== '';
+// Setup.php HANYA boleh dibuka dari komputer sendiri (localhost). Ini benar
+// walau targetnya database online seperti Aiven: yang dibatasi adalah dari
+// mana halaman ini DIBUKA, bukan ke mana database-nya berada.
+$remote  = $_SERVER['REMOTE_ADDR'] ?? '';
+$isLocal = in_array($remote, ['127.0.0.1', '::1', '::ffff:127.0.0.1'], true);
 
-if (!$isLocal || $onServer) {
+if (!$isLocal) {
     http_response_code(403);
     exit('Setup hanya boleh dijalankan di komputer lokal.');
 }
