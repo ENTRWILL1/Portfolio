@@ -1,0 +1,25 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| KONFIGURASI LOKAL (hanya untuk komputer sendiri)
+|--------------------------------------------------------------------------
+| File ini TIDAK otomatis dipakai. Untuk membuat tabel di database online
+| (Aiven) lewat database/setup.php di Laragon:
+|
+|   1. Salin file ini, ganti namanya jadi:  local-env.php
+|      (masih di dalam folder includes/, satu folder dengan file ini)
+|   2. Isi lima nilai di bawah dengan punyamu dari Aiven.
+|   3. Buka http://localhost/Portfolio%20Willy/database/setup.php
+|      Laragon tetap berjalan di localhost, tapi koneksi database akan
+|      menuju Aiven, karena nilai di bawah ini yang dipakai.
+|   4. Setelah "Berhasil" muncul, HAPUS file local-env.php ini.
+|      (Jangan sampai ikut ter-commit ke Git - sudah ditambahkan ke
+|      .gitignore, tapi lebih aman kalau langsung dihapus setelah dipakai.)
+*/
+
+putenv('DB_HOST=isi-host-dari-aiven');
+putenv('DB_PORT=isi-port-dari-aiven');
+putenv('DB_NAME=defaultdb');
+putenv('DB_USER=avnadmin');
+putenv('DB_PASS=isi-password-dari-aiven');

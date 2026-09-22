@@ -23,7 +23,7 @@ $pdo = getDb();
 
 if ($pdo === null) {
 
-    $dbProblem = "Database belum tersambung. Pastikan MySQL di Laragon sudah menyala.";
+    $dbProblem = dbHint();
 
 } else {
 
