@@ -5,6 +5,15 @@
 ========================================================= */
 
 require_once __DIR__ . "/../includes/guard.php";
+require_once __DIR__ . "/../includes/helpers.php";
+require_once __DIR__ . "/../includes/crud.php";
+
+
+/* =========================================================
+   💾 PROSES TAMBAH / EDIT / HAPUS
+========================================================= */
+
+$state = crudHandle("education", "education.php");
 
 
 /* =========================================================
@@ -58,6 +67,11 @@ require_once __DIR__ . "/../includes/Sidebar.php";
     </div>
 
 
+    <!-- PESAN STATUS -->
+
+    <?= crudAlertsHtml($state) ?>
+
+
     <!-- =====================================================
          TOOLBAR
     ====================================================== -->
@@ -76,222 +90,81 @@ require_once __DIR__ . "/../includes/Sidebar.php";
 
         </div>
 
-        <button
-            type="button"
+        <a
+            href="education.php?new=1#form-crud"
             class="admin-save-btn"
         >
             ➕ Tambah Education
-        </button>
+        </a>
 
     </div>
 
 
     <!-- =====================================================
-         EDUCATION LIST
+         FORM TAMBAH / EDIT
     ====================================================== -->
+
+    <?= crudFormCardHtml($state, "education.php") ?>
+
+
+    <!-- =====================================================
+         LIST
+    ====================================================== -->
+
+    <?php if ($state["dbProblem"] === null && $state["items"] === []): ?>
+
+        <div class="admin-alert admin-alert-warning">
+            Belum ada riwayat pendidikan. Klik <strong>➕ Tambah Education</strong> untuk menambahkan.
+        </div>
+
+    <?php endif; ?>
 
     <div class="admin-timeline-grid">
 
+        <?php foreach ($state["items"] as $item): ?>
 
-        <!-- EDUCATION 1 -->
+            <article class="admin-timeline-card">
 
-        <article class="admin-timeline-card">
+                <div class="admin-timeline-icon">
+                    <?= e($item["icon"]) ?>
+                </div>
 
-            <div class="admin-timeline-icon">
-                🎈
-            </div>
+                <div class="admin-timeline-content">
 
-            <div class="admin-timeline-content">
+                    <span class="admin-timeline-year">
+                        <?= e($item["tahun"]) ?>
+                    </span>
 
-                <span class="admin-timeline-year">
-                    2014 - 2015
-                </span>
+                    <h2>
+                        <?= e($item["sekolah"]) ?>
+                    </h2>
 
-                <h2>
-                    Taman Kanak-Kanak
-                </h2>
+                    <h3>
+                        <?= e($item["jurusan"]) ?>
+                    </h3>
 
-                <h3>
-                    Pendidikan Anak Dini
-                </h3>
+                    <p>
+                        <?= e($item["description"]) ?>
+                    </p>
 
-                <p>
-                    Masa awal mengenal lingkungan sekolah,
-                    bersosialisasi, dan mengasah kreativitas dasar.
-                </p>
+                    <div class="admin-card-actions">
 
-                <div class="admin-card-actions">
+                        <a
+                            href="education.php?edit=<?= (int) $item["_id"] ?>#form-crud"
+                            class="admin-edit-btn"
+                        >
+                            ✏️ Edit
+                        </a>
 
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
+                        <?= crudDeleteFormHtml("education.php", $item["_id"], $item["sekolah"]) ?>
 
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
+                    </div>
 
                 </div>
 
-            </div>
+            </article>
 
-        </article>
-
-
-        <!-- EDUCATION 2 -->
-
-        <article class="admin-timeline-card">
-
-            <div class="admin-timeline-icon">
-                🏫
-            </div>
-
-            <div class="admin-timeline-content">
-
-                <span class="admin-timeline-year">
-                    2015 - 2021
-                </span>
-
-                <h2>
-                    SDN 029 Tenggarong Seberang
-                </h2>
-
-                <h3>
-                    Pendidikan Dasar
-                </h3>
-
-                <p>
-                    Menyelesaikan pendidikan dasar serta membangun
-                    fondasi kemampuan akademis dan karakter.
-                </p>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- EDUCATION 3 -->
-
-        <article class="admin-timeline-card">
-
-            <div class="admin-timeline-icon">
-                📚
-            </div>
-
-            <div class="admin-timeline-content">
-
-                <span class="admin-timeline-year">
-                    2021 - 2024
-                </span>
-
-                <h2>
-                    SMPN 1 Tenggarong Seberang
-                </h2>
-
-                <h3>
-                    Pendidikan Menengah Pertama
-                </h3>
-
-                <p>
-                    Mengembangkan minat dalam bidang teknologi,
-                    logika, serta aktif dalam kegiatan sekolah.
-                </p>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- EDUCATION 4 -->
-
-        <article class="admin-timeline-card">
-
-            <div class="admin-timeline-icon">
-                🎓
-            </div>
-
-            <div class="admin-timeline-content">
-
-                <span class="admin-timeline-year">
-                    2025 - Sekarang
-                </span>
-
-                <h2>
-                    SMKTI Airlangga Samarinda
-                </h2>
-
-                <h3>
-                    Pengembangan Perangkat Lunak dan Gim (PPLG)
-                </h3>
-
-                <p>
-                    Mempelajari dasar pemrograman, pengembangan
-                    website, game development, dan teknologi digital.
-                </p>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
+        <?php endforeach; ?>
 
     </div>
 

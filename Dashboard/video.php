@@ -5,6 +5,16 @@
 ========================================================= */
 
 require_once __DIR__ . "/../includes/guard.php";
+require_once __DIR__ . "/../includes/helpers.php";
+require_once __DIR__ . "/../includes/crud.php";
+
+
+/* =========================================================
+   💾 PROSES SIMPAN PERUBAHAN
+========================================================= */
+
+$state = crudHandleSingle("video", "video.php");
+$row   = $state["row"];
 
 
 /* =========================================================
@@ -57,6 +67,11 @@ require_once __DIR__ . "/../includes/Sidebar.php";
     </div>
 
 
+    <!-- PESAN STATUS -->
+
+    <?= crudAlertsHtml($state) ?>
+
+
     <!-- =====================================================
          VIDEO PREVIEW
     ====================================================== -->
@@ -69,18 +84,15 @@ require_once __DIR__ . "/../includes/Sidebar.php";
                 controls
                 preload="metadata"
             >
-
                 <source
-                    src="../My Video.mp4"
+                    src="../<?= e(assetUrl($row["file"])) ?>"
                     type="video/mp4"
                 >
 
                 Browser kamu tidak mendukung pemutar video.
-
             </video>
 
         </div>
-
 
         <div class="admin-video-info">
 
@@ -89,12 +101,11 @@ require_once __DIR__ . "/../includes/Sidebar.php";
             </span>
 
             <h2>
-                My Video
+                <?= e($row["title"]) ?>
             </h2>
 
             <p>
-                Video yang saat ini digunakan sebagai
-                video showcase pada portfolio.
+                <?= e($row["description"]) ?>
             </p>
 
         </div>
@@ -124,80 +135,11 @@ require_once __DIR__ . "/../includes/Sidebar.php";
 
         </div>
 
+        <form action="video.php" method="POST">
 
-        <form action="" method="POST">
+            <?= csrfField() ?>
 
-
-            <!-- JUDUL -->
-
-            <div class="form-group">
-
-                <label for="videoTitle">
-                    Judul Video
-                </label>
-
-                <input
-                    type="text"
-                    id="videoTitle"
-                    name="videoTitle"
-                    value="My Video"
-                >
-
-            </div>
-
-
-            <!-- LABEL -->
-
-            <div class="form-group">
-
-                <label for="videoLabel">
-                    Label
-                </label>
-
-                <input
-                    type="text"
-                    id="videoLabel"
-                    name="videoLabel"
-                    value="MY EDIT"
-                >
-
-            </div>
-
-
-            <!-- DESKRIPSI -->
-
-            <div class="form-group">
-
-                <label for="videoDescription">
-                    Deskripsi
-                </label>
-
-                <textarea
-                    id="videoDescription"
-                    name="videoDescription"
-                    rows="5"
-                >Video showcase project dan hasil edit yang saya buat.</textarea>
-
-            </div>
-
-
-            <!-- FILE VIDEO -->
-
-            <div class="form-group">
-
-                <label for="videoFile">
-                    File Video
-                </label>
-
-                <input
-                    type="text"
-                    id="videoFile"
-                    name="videoFile"
-                    value="My Video.mp4"
-                >
-
-            </div>
-
+            <?= crudFieldsHtml($state["def"], $state["form"]) ?>
 
             <!-- BUTTON -->
 
@@ -218,7 +160,6 @@ require_once __DIR__ . "/../includes/Sidebar.php";
                 </a>
 
             </div>
-
 
         </form>
 

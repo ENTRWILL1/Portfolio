@@ -5,6 +5,16 @@
 ========================================================= */
 
 require_once __DIR__ . "/../includes/guard.php";
+require_once __DIR__ . "/../includes/helpers.php";
+require_once __DIR__ . "/../includes/crud.php";
+
+
+/* =========================================================
+   💾 PROSES SIMPAN PERUBAHAN
+========================================================= */
+
+$state = crudHandleSingle("learning", "learning.php");
+$row   = $state["row"];
 
 
 /* =========================================================
@@ -31,7 +41,7 @@ require_once __DIR__ . "/../includes/Sidebar.php";
 
 
 <!-- =========================================================
-     LEARNING PROGRESS CONTENT
+     LEARNING CONTENT
 ========================================================= -->
 
 <div class="dashboard-content">
@@ -58,6 +68,11 @@ require_once __DIR__ . "/../includes/Sidebar.php";
     </div>
 
 
+    <!-- PESAN STATUS -->
+
+    <?= crudAlertsHtml($state) ?>
+
+
     <!-- =====================================================
          CURRENT PROGRESS
     ====================================================== -->
@@ -79,7 +94,7 @@ require_once __DIR__ . "/../includes/Sidebar.php";
             </div>
 
             <span class="admin-progress-value">
-                60%
+                <?= (int) $row["percent"] ?>%
             </span>
 
         </div>
@@ -92,11 +107,11 @@ require_once __DIR__ . "/../includes/Sidebar.php";
             <div class="admin-progress-header">
 
                 <strong>
-                    Web Development, Game Development, and UI Design
+                    <?= e($row["title"]) ?>
                 </strong>
 
                 <span>
-                    60%
+                    <?= (int) $row["percent"] ?>%
                 </span>
 
             </div>
@@ -105,7 +120,7 @@ require_once __DIR__ . "/../includes/Sidebar.php";
 
                 <div
                     class="admin-progress-fill"
-                    style="width: 60%;"
+                    style="width: <?= max(0, min(100, (int) $row["percent"])) ?>%;"
                 ></div>
 
             </div>
@@ -117,63 +132,11 @@ require_once __DIR__ . "/../includes/Sidebar.php";
              FORM
         ================================================== -->
 
-        <form action="" method="POST">
+        <form action="learning.php" method="POST">
 
+            <?= csrfField() ?>
 
-            <!-- JUDUL -->
-
-            <div class="form-group">
-
-                <label for="learningTitle">
-                    Judul Pembelajaran
-                </label>
-
-                <input
-                    type="text"
-                    id="learningTitle"
-                    name="learningTitle"
-                    value="Web Development, Game Development, and UI Design"
-                >
-
-            </div>
-
-
-            <!-- PERCENT -->
-
-            <div class="form-group">
-
-                <label for="learningPercent">
-                    Persentase Progress
-                </label>
-
-                <input
-                    type="number"
-                    id="learningPercent"
-                    name="learningPercent"
-                    value="60"
-                    min="0"
-                    max="100"
-                >
-
-            </div>
-
-
-            <!-- DESCRIPTION -->
-
-            <div class="form-group">
-
-                <label for="learningDescription">
-                    Deskripsi
-                </label>
-
-                <textarea
-                    id="learningDescription"
-                    name="learningDescription"
-                    rows="6"
-                >Sedang mempelajari HTML, CSS, JavaScript, DOM, pembuatan game, UI Design, dan dasar-dasar pengembangan website.</textarea>
-
-            </div>
-
+            <?= crudFieldsHtml($state["def"], $state["form"]) ?>
 
             <!-- BUTTON -->
 
@@ -194,7 +157,6 @@ require_once __DIR__ . "/../includes/Sidebar.php";
                 </a>
 
             </div>
-
 
         </form>
 

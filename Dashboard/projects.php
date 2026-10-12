@@ -5,6 +5,17 @@
 ========================================================= */
 
 require_once __DIR__ . "/../includes/guard.php";
+require_once __DIR__ . "/../includes/helpers.php";
+require_once __DIR__ . "/../includes/crud.php";
+
+
+/* =========================================================
+   💾 PROSES TAMBAH / EDIT / HAPUS
+   (harus di atas, sebelum ada output HTML, karena setelah
+   proses halaman di-redirect)
+========================================================= */
+
+$state = crudHandle("projects", "projects.php");
 
 
 /* =========================================================
@@ -57,6 +68,11 @@ require_once __DIR__ . "/../includes/Sidebar.php";
     </div>
 
 
+    <!-- PESAN STATUS -->
+
+    <?= crudAlertsHtml($state) ?>
+
+
     <!-- =====================================================
          PROJECT ACTION
     ====================================================== -->
@@ -75,204 +91,95 @@ require_once __DIR__ . "/../includes/Sidebar.php";
 
         </div>
 
-        <button
-            type="button"
+        <a
+            href="projects.php?new=1#form-crud"
             class="admin-save-btn"
         >
             ➕ Tambah Project
-        </button>
+        </a>
 
     </div>
+
+
+    <!-- =====================================================
+         FORM TAMBAH / EDIT
+    ====================================================== -->
+
+    <?= crudFormCardHtml($state, "projects.php") ?>
 
 
     <!-- =====================================================
          PROJECT LIST
     ====================================================== -->
 
+    <?php if ($state["dbProblem"] === null && $state["items"] === []): ?>
+
+        <div class="admin-alert admin-alert-warning">
+            Belum ada project. Klik <strong>➕ Tambah Project</strong> untuk menambahkan.
+        </div>
+
+    <?php endif; ?>
+
     <div class="admin-project-grid">
 
+        <?php foreach ($state["items"] as $i => $project): ?>
 
-        <!-- PROJECT 1 -->
+            <article class="admin-project-card">
 
-        <article class="admin-project-card">
+                <div class="admin-project-top">
 
-            <div class="admin-project-top">
+                    <div class="admin-project-icon">
+                        <?= e($project["icon"]) ?>
+                    </div>
 
-                <div class="admin-project-icon">
-                    🎮
+                    <span class="admin-project-number">
+                        <?= str_pad((string) ($i + 1), 2, "0", STR_PAD_LEFT) ?>
+                    </span>
+
                 </div>
 
-                <span class="admin-project-number">
-                    01
-                </span>
+                <h2>
+                    <?= e($project["title"]) ?>
+                </h2>
 
-            </div>
+                <p>
+                    <?= e($project["description"]) ?>
+                </p>
 
-            <h2>
-                Runner Game
-            </h2>
+                <div class="admin-tech-list">
 
-            <p>
-                Game runner sederhana dengan sistem score,
-                lives, obstacle, jump, dan audio.
-            </p>
+                    <?php foreach ($project["tech"] as $tech): ?>
+                        <span><?= e($tech) ?></span>
+                    <?php endforeach; ?>
 
-            <div class="admin-tech-list">
-
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>JavaScript</span>
-
-            </div>
-
-            <div class="admin-card-actions">
-
-                <a
-                    href="#"
-                    class="admin-preview-btn"
-                >
-                    👁️ Preview
-                </a>
-
-                <button
-                    type="button"
-                    class="admin-edit-btn"
-                >
-                    ✏️ Edit
-                </button>
-
-                <button
-                    type="button"
-                    class="admin-delete-btn"
-                >
-                    🗑️ Hapus
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- PROJECT 2 -->
-
-        <article class="admin-project-card">
-
-            <div class="admin-project-top">
-
-                <div class="admin-project-icon">
-                    ✊
                 </div>
 
-                <span class="admin-project-number">
-                    02
-                </span>
+                <div class="admin-card-actions">
 
-            </div>
+                    <?php $href = crudLinkHref($project["link"]); ?>
 
-            <h2>
-                Rock Paper Scissors
-            </h2>
+                    <a
+                        href="<?= e($href) ?>"
+                        class="admin-preview-btn"
+                        <?= $href !== "#" ? 'target="_blank" rel="noopener"' : "" ?>
+                    >
+                        👁️ Preview
+                    </a>
 
-            <p>
-                Game batu, gunting, kertas dengan sistem
-                skor dan interaksi JavaScript.
-            </p>
+                    <a
+                        href="projects.php?edit=<?= (int) $project["_id"] ?>#form-crud"
+                        class="admin-edit-btn"
+                    >
+                        ✏️ Edit
+                    </a>
 
-            <div class="admin-tech-list">
+                    <?= crudDeleteFormHtml("projects.php", $project["_id"], $project["title"]) ?>
 
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>JavaScript</span>
-
-            </div>
-
-            <div class="admin-card-actions">
-
-                <a
-                    href="#"
-                    class="admin-preview-btn"
-                >
-                    👁️ Preview
-                </a>
-
-                <button
-                    type="button"
-                    class="admin-edit-btn"
-                >
-                    ✏️ Edit
-                </button>
-
-                <button
-                    type="button"
-                    class="admin-delete-btn"
-                >
-                    🗑️ Hapus
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- PROJECT 3 -->
-
-        <article class="admin-project-card">
-
-            <div class="admin-project-top">
-
-                <div class="admin-project-icon">
-                    🌐
                 </div>
 
-                <span class="admin-project-number">
-                    03
-                </span>
+            </article>
 
-            </div>
-
-            <h2>
-                Technology Article
-            </h2>
-
-            <p>
-                Website artikel mengenai teknologi dan
-                manfaat olahraga dengan desain modern.
-            </p>
-
-            <div class="admin-tech-list">
-
-                <span>HTML</span>
-                <span>CSS</span>
-
-            </div>
-
-            <div class="admin-card-actions">
-
-                <a
-                    href="#"
-                    class="admin-preview-btn"
-                >
-                    👁️ Preview
-                </a>
-
-                <button
-                    type="button"
-                    class="admin-edit-btn"
-                >
-                    ✏️ Edit
-                </button>
-
-                <button
-                    type="button"
-                    class="admin-delete-btn"
-                >
-                    🗑️ Hapus
-                </button>
-
-            </div>
-
-        </article>
-
+        <?php endforeach; ?>
 
     </div>
 

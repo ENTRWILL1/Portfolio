@@ -19,6 +19,8 @@ $menu = [
     'gallery.php' => ['🖼️', 'Gallery'],
     'video.php'  => ['🎬', 'Video'],
     'learning.php'      => ['📚', 'Learning Progress'],
+    'music.php'         => ['🎵', 'Music'],
+    'contact.php'       => ['📬', 'Contact'],
 ];
 
 ?>

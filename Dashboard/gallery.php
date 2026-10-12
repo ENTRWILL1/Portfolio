@@ -5,6 +5,15 @@
 ========================================================= */
 
 require_once __DIR__ . "/../includes/guard.php";
+require_once __DIR__ . "/../includes/helpers.php";
+require_once __DIR__ . "/../includes/crud.php";
+
+
+/* =========================================================
+   💾 PROSES TAMBAH / EDIT / HAPUS
+========================================================= */
+
+$state = crudHandle("gallery", "gallery.php");
 
 
 /* =========================================================
@@ -58,8 +67,13 @@ require_once __DIR__ . "/../includes/Sidebar.php";
     </div>
 
 
+    <!-- PESAN STATUS -->
+
+    <?= crudAlertsHtml($state) ?>
+
+
     <!-- =====================================================
-         GALLERY TOOLBAR
+         TOOLBAR
     ====================================================== -->
 
     <div class="admin-toolbar">
@@ -76,482 +90,78 @@ require_once __DIR__ . "/../includes/Sidebar.php";
 
         </div>
 
-        <button
-            type="button"
+        <a
+            href="gallery.php?new=1#form-crud"
             class="admin-save-btn"
         >
             ➕ Tambah Gambar
-        </button>
+        </a>
 
     </div>
 
 
     <!-- =====================================================
-         GALLERY GRID
+         FORM TAMBAH / EDIT
     ====================================================== -->
+
+    <?= crudFormCardHtml($state, "gallery.php") ?>
+
+
+    <!-- =====================================================
+         LIST
+    ====================================================== -->
+
+    <?php if ($state["dbProblem"] === null && $state["items"] === []): ?>
+
+        <div class="admin-alert admin-alert-warning">
+            Belum ada gambar. Klik <strong>➕ Tambah Gambar</strong> untuk menambahkan.
+        </div>
+
+    <?php endif; ?>
 
     <div class="admin-gallery-grid">
 
+        <?php foreach ($state["items"] as $i => $img): ?>
 
-        <!-- IMAGE 1 -->
+            <?php $nama = $img["title"] !== "" ? $img["title"] : basename($img["file"]); ?>
 
-        <article class="admin-gallery-card">
+            <article class="admin-gallery-card">
 
-            <div class="admin-gallery-image">
-
-                <img
-                    src="../Gallery/code.jpg"
-                    alt="Gallery code"
-                >
-
-            </div>
-
-            <div class="admin-gallery-info">
-
-                <span>
-                    01
-                </span>
-
-                <h2>
-                    code.jpg
-                </h2>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
+                <div class="admin-gallery-image">
+                    <img
+                        src="../<?= e(assetUrl($img["file"])) ?>"
+                        alt="<?= e($nama) ?>"
                     >
-                        ✏️ Edit
-                    </button>
+                </div>
 
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
+                <div class="admin-gallery-info">
+
+                    <span>
+                        <?= str_pad((string) ($i + 1), 2, "0", STR_PAD_LEFT) ?>
+                    </span>
+
+                    <h2>
+                        <?= e($nama) ?>
+                    </h2>
+
+                    <div class="admin-card-actions">
+
+                        <a
+                            href="gallery.php?edit=<?= (int) $img["_id"] ?>#form-crud"
+                            class="admin-edit-btn"
+                        >
+                            ✏️ Edit
+                        </a>
+
+                        <?= crudDeleteFormHtml("gallery.php", $img["_id"], $nama) ?>
+
+                    </div>
 
                 </div>
 
-            </div>
+            </article>
 
-        </article>
-
-
-        <!-- IMAGE 2 -->
-
-        <article class="admin-gallery-card">
-
-            <div class="admin-gallery-image">
-
-                <img
-                    src="../Gallery/code1.jpg"
-                    alt="Gallery code 1"
-                >
-
-            </div>
-
-            <div class="admin-gallery-info">
-
-                <span>
-                    02
-                </span>
-
-                <h2>
-                    code1.jpg
-                </h2>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- IMAGE 3 -->
-
-        <article class="admin-gallery-card">
-
-            <div class="admin-gallery-image">
-
-                <img
-                    src="../Gallery/code2.jpg"
-                    alt="Gallery code 2"
-                >
-
-            </div>
-
-            <div class="admin-gallery-info">
-
-                <span>
-                    03
-                </span>
-
-                <h2>
-                    code2.jpg
-                </h2>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- IMAGE 4 -->
-
-        <article class="admin-gallery-card">
-
-            <div class="admin-gallery-image">
-
-                <img
-                    src="../Gallery/3.jpg"
-                    alt="Gallery 3"
-                >
-
-            </div>
-
-            <div class="admin-gallery-info">
-
-                <span>
-                    04
-                </span>
-
-                <h2>
-                    3.jpg
-                </h2>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- IMAGE 5 -->
-
-        <article class="admin-gallery-card">
-
-            <div class="admin-gallery-image">
-
-                <img
-                    src="../Gallery/4.jpg"
-                    alt="Gallery 4"
-                >
-
-            </div>
-
-            <div class="admin-gallery-info">
-
-                <span>
-                    05
-                </span>
-
-                <h2>
-                    4.jpg
-                </h2>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- IMAGE 6 -->
-
-        <article class="admin-gallery-card">
-
-            <div class="admin-gallery-image">
-
-                <img
-                    src="../Gallery/5.jpg"
-                    alt="Gallery 5"
-                >
-
-            </div>
-
-            <div class="admin-gallery-info">
-
-                <span>
-                    06
-                </span>
-
-                <h2>
-                    5.jpg
-                </h2>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- IMAGE 7 -->
-
-        <article class="admin-gallery-card">
-
-            <div class="admin-gallery-image">
-
-                <img
-                    src="../Gallery/6.jpg"
-                    alt="Gallery 6"
-                >
-
-            </div>
-
-            <div class="admin-gallery-info">
-
-                <span>
-                    07
-                </span>
-
-                <h2>
-                    6.jpg
-                </h2>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- IMAGE 8 -->
-
-        <article class="admin-gallery-card">
-
-            <div class="admin-gallery-image">
-
-                <img
-                    src="../Gallery/7.jpg"
-                    alt="Gallery 7"
-                >
-
-            </div>
-
-            <div class="admin-gallery-info">
-
-                <span>
-                    08
-                </span>
-
-                <h2>
-                    7.jpg
-                </h2>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- IMAGE 9 -->
-
-        <article class="admin-gallery-card">
-
-            <div class="admin-gallery-image">
-
-                <img
-                    src="../Gallery/8.jpg"
-                    alt="Gallery 8"
-                >
-
-            </div>
-
-            <div class="admin-gallery-info">
-
-                <span>
-                    09
-                </span>
-
-                <h2>
-                    8.jpg
-                </h2>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- IMAGE 10 -->
-
-        <article class="admin-gallery-card">
-
-            <div class="admin-gallery-image">
-
-                <img
-                    src="../Gallery/9.jpg"
-                    alt="Gallery 9"
-                >
-
-            </div>
-
-            <div class="admin-gallery-info">
-
-                <span>
-                    10
-                </span>
-
-                <h2>
-                    9.jpg
-                </h2>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
+        <?php endforeach; ?>
 
     </div>
 

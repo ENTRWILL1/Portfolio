@@ -1274,3 +1274,23 @@ body.dark {
     color: var(--dashboard-text-soft);
     font-size: 0.78rem;
 }
+
+
+/* =========================================================
+   CRUD: tombol Hapus (form POST) & tombol sebagai link
+========================================================= */
+
+.admin-inline-form {
+    display: inline-flex;
+    margin: 0;
+}
+
+#form-crud {
+    scroll-margin-top: 1.5rem;
+}
+
+a.admin-save-btn,
+a.admin-edit-btn,
+a.admin-preview-btn {
+    text-decoration: none;
+}

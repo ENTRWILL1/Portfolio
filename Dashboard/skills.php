@@ -5,6 +5,15 @@
 ========================================================= */
 
 require_once __DIR__ . "/../includes/guard.php";
+require_once __DIR__ . "/../includes/helpers.php";
+require_once __DIR__ . "/../includes/crud.php";
+
+
+/* =========================================================
+   💾 PROSES TAMBAH / EDIT / HAPUS
+========================================================= */
+
+$state = crudHandle("skills", "skills.php");
 
 
 /* =========================================================
@@ -58,6 +67,11 @@ require_once __DIR__ . "/../includes/Sidebar.php";
     </div>
 
 
+    <!-- PESAN STATUS -->
+
+    <?= crudAlertsHtml($state) ?>
+
+
     <!-- =====================================================
          SKILLS TOOLBAR
     ====================================================== -->
@@ -76,202 +90,77 @@ require_once __DIR__ . "/../includes/Sidebar.php";
 
         </div>
 
-        <button
-            type="button"
+        <a
+            href="skills.php?new=1#form-crud"
             class="admin-save-btn"
         >
             ➕ Tambah Skill
-        </button>
+        </a>
 
     </div>
+
+
+    <!-- =====================================================
+         FORM TAMBAH / EDIT
+    ====================================================== -->
+
+    <?= crudFormCardHtml($state, "skills.php") ?>
 
 
     <!-- =====================================================
          SKILLS GRID
     ====================================================== -->
 
+    <?php if ($state["dbProblem"] === null && $state["items"] === []): ?>
+
+        <div class="admin-alert admin-alert-warning">
+            Belum ada skill. Klik <strong>➕ Tambah Skill</strong> untuk menambahkan.
+        </div>
+
+    <?php endif; ?>
+
     <div class="admin-skill-grid">
 
+        <?php foreach ($state["items"] as $skill): ?>
 
-        <!-- HTML -->
+            <article class="admin-skill-card">
 
-        <article class="admin-skill-card">
+                <div class="admin-skill-icon">
+                    <?= e($skill["icon"]) ?>
+                </div>
 
-            <div class="admin-skill-icon">
-                🌐
-            </div>
+                <div class="admin-skill-info">
 
-            <div class="admin-skill-info">
+                    <div>
 
-                <div>
+                        <h2>
+                            <?= e($skill["nama"]) ?>
+                        </h2>
 
-                    <h2>
-                        HTML
-                    </h2>
+                        <span>
+                            <?= e($skill["level"]) ?>
+                        </span>
 
-                    <span>
-                        Beginner
-                    </span>
+                    </div>
 
                 </div>
 
-            </div>
+                <div class="admin-card-actions">
 
-            <div class="admin-card-actions">
+                    <a
+                        href="skills.php?edit=<?= (int) $skill["_id"] ?>#form-crud"
+                        class="admin-edit-btn"
+                    >
+                        ✏️ Edit
+                    </a>
 
-                <button
-                    type="button"
-                    class="admin-edit-btn"
-                >
-                    ✏️ Edit
-                </button>
-
-                <button
-                    type="button"
-                    class="admin-delete-btn"
-                >
-                    🗑️ Hapus
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- CSS -->
-
-        <article class="admin-skill-card">
-
-            <div class="admin-skill-icon">
-                🎨
-            </div>
-
-            <div class="admin-skill-info">
-
-                <div>
-
-                    <h2>
-                        CSS
-                    </h2>
-
-                    <span>
-                        Beginner
-                    </span>
+                    <?= crudDeleteFormHtml("skills.php", $skill["_id"], $skill["nama"]) ?>
 
                 </div>
 
-            </div>
+            </article>
 
-            <div class="admin-card-actions">
-
-                <button
-                    type="button"
-                    class="admin-edit-btn"
-                >
-                    ✏️ Edit
-                </button>
-
-                <button
-                    type="button"
-                    class="admin-delete-btn"
-                >
-                    🗑️ Hapus
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- JAVASCRIPT -->
-
-        <article class="admin-skill-card">
-
-            <div class="admin-skill-icon">
-                ⚡
-            </div>
-
-            <div class="admin-skill-info">
-
-                <div>
-
-                    <h2>
-                        JavaScript
-                    </h2>
-
-                    <span>
-                        Beginner
-                    </span>
-
-                </div>
-
-            </div>
-
-            <div class="admin-card-actions">
-
-                <button
-                    type="button"
-                    class="admin-edit-btn"
-                >
-                    ✏️ Edit
-                </button>
-
-                <button
-                    type="button"
-                    class="admin-delete-btn"
-                >
-                    🗑️ Hapus
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- PYTHON -->
-
-        <article class="admin-skill-card">
-
-            <div class="admin-skill-icon">
-                🐍
-            </div>
-
-            <div class="admin-skill-info">
-
-                <div>
-
-                    <h2>
-                        Python
-                    </h2>
-
-                    <span>
-                        Beginner
-                    </span>
-
-                </div>
-
-            </div>
-
-            <div class="admin-card-actions">
-
-                <button
-                    type="button"
-                    class="admin-edit-btn"
-                >
-                    ✏️ Edit
-                </button>
-
-                <button
-                    type="button"
-                    class="admin-delete-btn"
-                >
-                    🗑️ Hapus
-                </button>
-
-            </div>
-
-        </article>
-
+        <?php endforeach; ?>
 
     </div>
 

@@ -5,6 +5,15 @@
 ========================================================= */
 
 require_once __DIR__ . "/../includes/guard.php";
+require_once __DIR__ . "/../includes/helpers.php";
+require_once __DIR__ . "/../includes/crud.php";
+
+
+/* =========================================================
+   💾 PROSES TAMBAH / EDIT / HAPUS
+========================================================= */
+
+$state = crudHandle("experience", "experience.php");
 
 
 /* =========================================================
@@ -58,6 +67,11 @@ require_once __DIR__ . "/../includes/Sidebar.php";
     </div>
 
 
+    <!-- PESAN STATUS -->
+
+    <?= crudAlertsHtml($state) ?>
+
+
     <!-- =====================================================
          TOOLBAR
     ====================================================== -->
@@ -76,124 +90,81 @@ require_once __DIR__ . "/../includes/Sidebar.php";
 
         </div>
 
-        <button
-            type="button"
+        <a
+            href="experience.php?new=1#form-crud"
             class="admin-save-btn"
         >
             ➕ Tambah Experience
-        </button>
+        </a>
 
     </div>
 
 
     <!-- =====================================================
-         EXPERIENCE LIST
+         FORM TAMBAH / EDIT
     ====================================================== -->
+
+    <?= crudFormCardHtml($state, "experience.php") ?>
+
+
+    <!-- =====================================================
+         LIST
+    ====================================================== -->
+
+    <?php if ($state["dbProblem"] === null && $state["items"] === []): ?>
+
+        <div class="admin-alert admin-alert-warning">
+            Belum ada experience. Klik <strong>➕ Tambah Experience</strong> untuk menambahkan.
+        </div>
+
+    <?php endif; ?>
 
     <div class="admin-timeline-grid">
 
+        <?php foreach ($state["items"] as $item): ?>
 
-        <!-- EXPERIENCE 1 -->
+            <article class="admin-timeline-card">
 
-        <article class="admin-timeline-card">
+                <div class="admin-timeline-icon">
+                    <?= e($item["icon"]) ?>
+                </div>
 
-            <div class="admin-timeline-icon">
-                💻
-            </div>
+                <div class="admin-timeline-content">
 
-            <div class="admin-timeline-content">
+                    <span class="admin-timeline-year">
+                        <?= e($item["tahun"]) ?>
+                    </span>
 
-                <span class="admin-timeline-year">
-                    2026
-                </span>
+                    <h2>
+                        <?= e($item["posisi"]) ?>
+                    </h2>
 
-                <h2>
-                    Student Developer
-                </h2>
+                    <h3>
+                        <?= e($item["tempat"]) ?>
+                    </h3>
 
-                <h3>
-                    Personal & School Projects
-                </h3>
+                    <p>
+                        <?= e($item["description"]) ?>
+                    </p>
 
-                <p>
-                    Mengerjakan berbagai project website,
-                    game sederhana, dan eksperimen menggunakan
-                    HTML, CSS, JavaScript, dan Python.
-                </p>
+                    <div class="admin-card-actions">
 
-                <div class="admin-card-actions">
+                        <a
+                            href="experience.php?edit=<?= (int) $item["_id"] ?>#form-crud"
+                            class="admin-edit-btn"
+                        >
+                            ✏️ Edit
+                        </a>
 
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
+                        <?= crudDeleteFormHtml("experience.php", $item["_id"], $item["posisi"]) ?>
 
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
+                    </div>
 
                 </div>
 
-            </div>
+            </article>
 
-        </article>
-
-
-        <!-- EXPERIENCE 2 -->
-
-        <article class="admin-timeline-card">
-
-            <div class="admin-timeline-icon">
-                🎮
-            </div>
-
-            <div class="admin-timeline-content">
-
-                <span class="admin-timeline-year">
-                    2026
-                </span>
-
-                <h2>
-                    Game Developer Learner
-                </h2>
-
-                <h3>
-                    Personal Project
-                </h3>
-
-                <p>
-                    Mempelajari pembuatan game sederhana dengan
-                    sistem movement, score, obstacle, lives,
-                    audio, dan interaksi pemain.
-                </p>
-
-                <div class="admin-card-actions">
-
-                    <button
-                        type="button"
-                        class="admin-edit-btn"
-                    >
-                        ✏️ Edit
-                    </button>
-
-                    <button
-                        type="button"
-                        class="admin-delete-btn"
-                    >
-                        🗑️ Hapus
-                    </button>
-
-                </div>
-
-            </div>
-
-        </article>
-
+        <?php endforeach; ?>
 
     </div>
 

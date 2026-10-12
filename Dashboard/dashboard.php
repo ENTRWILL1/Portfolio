@@ -44,6 +44,8 @@ $deskripsi = [
     "gallery.php"    => "Kelola foto dan gallery.",
     "video.php"      => "Kelola video showcase.",
     "learning.php"   => "Kelola perkembangan pembelajaran.",
+    "music.php"      => "Kelola daftar lagu music player.",
+    "contact.php"    => "Kelola email dan media sosial.",
 ];
 
 $kartu = array_filter(
